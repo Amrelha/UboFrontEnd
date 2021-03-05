@@ -1,7 +1,27 @@
-<nav class="navbar bg-light col-md-2">
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" href="#">Formations</a>
-    </li>
-  </ul>
-</nav>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar >Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="#">Formations</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content >
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span >Titre</span>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <br>
+    <app-formations-table></app-formations-table>
+  </mat-sidenav-content>
+</mat-sidenav-container>

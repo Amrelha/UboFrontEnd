@@ -1,3 +1,8 @@
+<mat-form-field>
+  <mat-label>Rechercher</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. M2 <3" #input>
+</mat-form-field>
+
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z6">
 
   <!-- Niveau Column -->
