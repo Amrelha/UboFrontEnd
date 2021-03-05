@@ -1,0 +1,30 @@
+   <form class="example-form" action="">
+        <mat-form-field class="example-full-width">
+            <mat-label>Code formation</mat-label>
+            <textarea matInput></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Diplome</mat-label>
+            <textarea matInput></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>N° de l'année de formation</mat-label>
+            <textarea matInput></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Nom de formation</mat-label>
+            <textarea matInput></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Choose an option</mat-label>
+            <select matNativeControl [disabled]="disableSelect.value">
+              <option value="" selected></option>
+              <option value="volvo">Volvo</option>
+              <option value="saab" disabled>Saab</option>
+              <option value="mercedes">Mercedes</option>
+              <option value="audi">Audi</option>
+            </select>
+          </mat-form-field>
+    </form>
+
