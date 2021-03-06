@@ -1,12 +1,8 @@
 /* Structure */
 table {
+  table-layout: fixed;
   width: 100%;
   table-layout: fixed;
-}
-
-.mat-form-field {
-  font-size: 14px;
-  width: 100%;
 }
 
 th, td {
@@ -15,3 +11,8 @@ th, td {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
