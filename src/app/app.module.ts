@@ -22,6 +22,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {MatDialogModule} from '@angular/material/dialog';
+import { RouterModule, Routes } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
 export const MY_FORMAT: MatDateFormats = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -33,6 +35,7 @@ export const MY_FORMAT: MatDateFormats = {
     monthYearA11yLabel: 'MMMM YYYY',
   },
 };
+
 
 @NgModule({
   declarations: [
@@ -59,7 +62,10 @@ export const MY_FORMAT: MatDateFormats = {
     MatNativeDateModule,
     MatDatepickerModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    RouterModule,
+    AppRoutingModule
+ 
     
   ],
   providers: [   

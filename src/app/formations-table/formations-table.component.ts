@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatSort, Sort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-
+import {ChangeDetectorRef } from '@angular/core';
 export interface PeriodicElement {
   Code: string;
   Niveau: string;
@@ -22,6 +22,8 @@ export class FormationsTableComponent implements AfterViewInit {
   displayedColumns: string[] = ['Niveau', 'Code', 'Libelle'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
+  constructor( private cdref: ChangeDetectorRef ) {}
+
   @ViewChild(MatSort) sort: MatSort;
 
   ngAfterViewInit() {
@@ -31,6 +33,7 @@ export class FormationsTableComponent implements AfterViewInit {
     this.sort.active = sortState.active;
     this.sort.direction = sortState.direction;
     this.sort.sortChange.emit(sortState);
+    this.cdref.detectChanges();
   }
 
   applyFilter(event: Event) {
