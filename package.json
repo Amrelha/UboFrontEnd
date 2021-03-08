@@ -19,10 +19,13 @@
     "@angular/core": "~9.1.9",
     "@angular/forms": "~9.1.9",
     "@angular/material": "^9.2.4",
+    "@angular/material-moment-adapter": "^11.2.3",
     "@angular/platform-browser": "~9.1.9",
     "@angular/platform-browser-dynamic": "~9.1.9",
     "@angular/router": "~9.1.9",
+    "angular-mat-datepicker": "0.0.2",
     "bootstrap": "^4.6.0",
+    "moment": "^2.29.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

@@ -1,3 +1,8 @@
+<mat-form-field>
+  <mat-label>Rechercher</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. M2 <3" #input>
+</mat-form-field>
+
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z6">
 
   <!-- Niveau Column -->
@@ -15,7 +20,9 @@
   <!-- Libelle Column -->
   <ng-container matColumnDef="Libelle">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Libellé </th>
-    <td mat-cell *matCellDef="let element"> {{element.Libelle}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.Libelle}} 
+      
+    </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
