@@ -24,6 +24,8 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {MatDialogModule} from '@angular/material/dialog';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
+
+
 export const MY_FORMAT: MatDateFormats = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -64,7 +66,8 @@ export const MY_FORMAT: MatDateFormats = {
     ReactiveFormsModule,
     MatDialogModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatSidenavModule
  
     
   ],

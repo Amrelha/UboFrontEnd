@@ -25,16 +25,11 @@ export class FormationFormComponent implements OnInit {
       numAnnee: ['',[Validators.required,  ]],
       nomFormation: ['',[Validators.required]],
       doubleDiplome: ['false',[Validators.required]],
-      dateDebut: ['',[Validators.required]],
-      dateFin: ['',[Validators.required]],
+      dateDebut: ['',[]],
+      dateFin: ['',[]],
     });
   }
-  onSubmitForm(){
-    const formValue = this.formationForm.value;
-    console.log(formValue);
-    this.dialog.closeAll();
 
-  }
   upperCase(){
     this.code = this.formationForm.value['codeFormation'].toUpperCase();
   }
@@ -42,9 +37,18 @@ export class FormationFormComponent implements OnInit {
     if(this.formationForm.get(formControlName).hasError('required'))
       return "Ce champs est obligatoire";
     if(this.formationForm.get(formControlName).hasError('maxlength'))
-    return "Le nombre Maximum de caractère est 10 ";
+      return "Le nombre Maximum de caractère est 10 ";
     else
-    return "Le nombre Minimum de caractère est 10";
+      return "Le nombre Minimum de caractère est 10";
+  }
+
+  onSubmitForm(){
+    const formValue = this.formationForm.value;
+    console.log(formValue);
+    this.dialog.closeAll();
+  }
+  fermer(){
+    this.dialog.closeAll();
   }
 
 }

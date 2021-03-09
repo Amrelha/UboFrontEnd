@@ -1,3 +1,4 @@
+
     <form class="example-form" [formGroup]="formationForm" (ngSubmit)="onSubmitForm()">
         
 
@@ -18,6 +19,8 @@
            </mat-error>
           </mat-form-field>
 
+         
+
           <mat-form-field class="example-full-width">
             <mat-label>N° de l'année de formation</mat-label>
             <input matInput placeholder="2" formControlName="numAnnee" type="number">
@@ -35,16 +38,35 @@
            </mat-error>
           </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Double diplome</mat-label>
-            <select matNativeControl  formControlName="doubleDiplome" >
-              <option value="true">Vrai</option>
-              <option value="false"  >Faux</option>
-              <mat-error *ngIf="formationForm.invalid">
-                {{getErrocMessage("doubleDiplome")}} 
-           </mat-error>
-            </select>
-        </mat-form-field>
+          <div class="row">
+              <div class="col">
+                <mat-form-field appearance="fill">
+                    <mat-label>Diplome</mat-label>
+                    <select matNativeControl  formControlName="diplome" >
+                      <option value="DUT">DUT</option>
+                      <option value="licence"  >licence</option>
+                      <option value="master"  >master</option>
+                      
+                    </select>
+                    <mat-error *ngIf="formationForm.invalid">
+                        {{getErrocMessage("diplome")}} 
+                   </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col">
+                <mat-form-field class="doubleDip" appearance="fill">
+                    <mat-label>Double diplome</mat-label>
+                    <select matNativeControl  formControlName="doubleDiplome" >
+                      <option value="true">Vrai</option>
+                      <option value="false"  >Faux</option>
+                    
+                    </select>
+                    <mat-error *ngIf="formationForm.invalid">
+                        {{getErrocMessage("doubleDiplome")}} 
+                   </mat-error>
+                </mat-form-field>
+              </div>
+          </div>
 
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Date de début de validité de la formation</mat-label>
@@ -63,7 +85,13 @@
             </mat-datepicker-toggle>
             <mat-datepicker #picker1 ></mat-datepicker>
         </mat-form-field>
-        <button mat-raised-button color="primary" type="submit" [disabled]="!formationForm.valid">Ajouter</button>
+        <div class="row ">
+            <div class="col"><button mat-raised-button color="warn" (click)="fermer()" >fermer</button></div>
+            <div class="col"></div>
+            <div class="col"><button class="submitButton" mat-raised-button color="primary" type="submit" [disabled]="!formationForm.valid">Ajouter</button></div>
+        </div>
+        
+       
     </form>
 
 

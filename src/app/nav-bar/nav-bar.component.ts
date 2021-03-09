@@ -16,15 +16,8 @@ export class NavBarComponent {
       map(result => result.matches),
       shareReplay()
     );
-    openDialog(){
-      console.log("test");
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.autoFocus = true;
-      dialogConfig.width = "50%"; 
-      dialogConfig.disableClose = true;
-      this.dialog.open(FormationFormComponent, dialogConfig);
-    }
 
-  constructor(private breakpointObserver: BreakpointObserver, private dialog: MatDialog) {}
+
+  constructor(private breakpointObserver: BreakpointObserver) {}
 
 }

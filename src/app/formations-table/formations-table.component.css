@@ -17,3 +17,25 @@ th, td {
   width: 100%;
 }
 
+.mat-elevation-z6{
+  margin-top: 1%;
+}
+
+.mat-form-field{
+  font-size: 14px;
+  width: 50%;
+}
+.Rechercher{
+  margin-left: 2%;
+}
+
+
+button{
+  position:relative; 
+    display:inline-block; 
+    float:right;
+
+    background-color: rgb(201 203 212);
+    margin-top: 1%;
+
+}

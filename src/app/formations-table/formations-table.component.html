@@ -1,7 +1,12 @@
-<mat-form-field>
-  <mat-label>Rechercher</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. M2 <3" #input>
-</mat-form-field>
+<div class="row ">
+  <div class="col "><mat-form-field>
+    <mat-label> <mat-icon>search</mat-icon><span class="Rechercher">Rechercher</span></mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. M2 <3" #input>
+   
+  </mat-form-field></div>
+  <div class="col "> <button (click)="openDialog()" class="button" mat-raised-button ><mat-icon>add</mat-icon>Ajouter Formation</button> </div>
+</div>
+
 
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z6">
 
