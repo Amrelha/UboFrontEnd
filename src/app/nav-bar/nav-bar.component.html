@@ -1,11 +1,12 @@
-<mat-sidenav-container class="sidenav-container">
+<!--    <mat-sidenav-container class="sidenav-container">
+
   <mat-sidenav #drawer class="sidenav" fixedInViewport
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar >Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Formations</a>
+      <a mat-list-item routerLink="formation">Formations</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content >
@@ -19,11 +20,39 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <app-header></app-header>
-    </mat-toolbar>
-    <!-- Add Content Here -->
-    <br>
-      <div class="content">
-        <app-formations-table></app-formations-table>
-      </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+    </mat-toolbar>  -->
+<!-- Add Content Here -->
+
+<div class="wrapper">
+  <div class="sidebar">
+    <h1>Menu</h1>
+    <ul>
+      <li><a routerLink="formation"><i class="fas fa-home"></i>Formation</a></li>
+      <li><a href="#"><i class="fas fa-user"></i>Profile</a></li>
+      <li><a href="#"><i class="fas fa-address-card"></i>About</a></li>
+      <li><a href="#"><i class="fas fa-project-diagram"></i>portfolio</a></li>
+      <li><a href="#"><i class="fas fa-blog"></i>Blogs</a></li>
+      <li><a href="#"><i class="fas fa-address-book"></i>Contact</a></li>
+      <li><a href="#"><i class="fas fa-map-pin"></i>Map</a></li>
+    </ul>
+
+  </div>
+
+  <div class="main_content">
+    <div class="header"> <h1>UBO-Gestionnaire</h1></div>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</div>
+
+
+
+<!-- <br>
+<button mat-button color="warn" (click)="openDialog()">Open dialog</button>
+<div class="content">
+  <router-outlet></router-outlet>
+</div> -->
+<!--   </mat-sidenav-content>
+</mat-sidenav-container>  -->
