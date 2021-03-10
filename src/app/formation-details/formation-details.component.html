@@ -1,0 +1,17 @@
+<mat-card >
+  <div *ngFor="let item of getDetails() | keyvalue">
+    <div *ngIf = "item.key == 'code'; then Niv else other"></div>
+      <ng-template #other>
+        <br>
+        <mat-card>
+          <mat-card-title>{{item.key}}</mat-card-title>
+          <mat-card-content>{{item.value}}</mat-card-content>
+        </mat-card>
+      </ng-template>
+      <ng-template #Niv><mat-card-title>{{item.value}}</mat-card-title></ng-template>
+  </div>
+  <br><br>
+  <div class="center">
+    <button (click)="retourner()" mat-raised-button color="primary">Retour</button>
+  </div>
+</mat-card>
