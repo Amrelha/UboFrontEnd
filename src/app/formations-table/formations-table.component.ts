@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FormationFormComponent } from '../formation-form/formation-form.component';
+import {ActivatedRoute, Router} from '@angular/router';
+
 export interface PeriodicElement {
   Code: string;
   Niveau: string;
@@ -27,7 +29,7 @@ export class FormationsTableComponent implements AfterViewInit {
   displayedColumns: string[] = ['Niveau', 'Code', 'Libelle'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
-  constructor(private cdref: ChangeDetectorRef, private dialog: MatDialog) { }
+  constructor(private cdref: ChangeDetectorRef, private dialog: MatDialog, private router: Router) { }
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -57,4 +59,8 @@ export class FormationsTableComponent implements AfterViewInit {
     dialogConfig.disableClose = true;
     this.dialog.open(FormationFormComponent, dialogConfig);
   }
+  Details(code){
+    this.router.navigate(['formationDetails/' + code]);
+  }
+
 }

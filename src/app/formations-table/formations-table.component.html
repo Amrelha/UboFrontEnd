@@ -2,7 +2,7 @@
   <div class="col "><mat-form-field>
     <mat-label> <mat-icon>search</mat-icon><span class="Rechercher">Rechercher</span></mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. M2 <3" #input>
-   
+
   </mat-form-field></div>
   <div class="col "> <button (click)="openDialog()" class="button" mat-raised-button ><mat-icon>add</mat-icon>Ajouter Formation</button> </div>
 </div>
@@ -13,13 +13,14 @@
   <!-- Niveau Column -->
   <ng-container *ngFor="let column of displayedColumns" matColumnDef="{{column}}" >
     <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
-    <td mat-cell *matCellDef="let element">
+    <td mat-cell *matCellDef="let element" (click)="Details(element['Code'])">
       <div  *ngIf = "column == 'Libelle'; then Niv else other"></div>
       <ng-template #other> {{element[column]}} </ng-template>
-      <ng-template #Niv><span title="{{element[column]}}"> {{element[column]}} </span></ng-template>     
+      <ng-template #Niv><span title="{{element[column]}}"> {{element[column]}} </span></ng-template>
     </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+

@@ -24,6 +24,8 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {MatDialogModule} from '@angular/material/dialog';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
+import { FormationDetailsComponent } from './formation-details/formation-details.component';
+import {MatCardModule} from '@angular/material/card';
 
 
 export const MY_FORMAT: MatDateFormats = {
@@ -45,7 +47,8 @@ export const MY_FORMAT: MatDateFormats = {
     NavBarComponent,
     HeaderComponent,
     FormationsTableComponent,
-    FormationFormComponent
+    FormationFormComponent,
+    FormationDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -67,11 +70,12 @@ export const MY_FORMAT: MatDateFormats = {
     MatDialogModule,
     RouterModule,
     AppRoutingModule,
-    MatSidenavModule
- 
-    
+    MatSidenavModule,
+    MatCardModule
+
+
   ],
-  providers: [   
+  providers: [
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMAT}, ],
   bootstrap: [AppComponent]
