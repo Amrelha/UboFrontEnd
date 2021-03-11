@@ -6,7 +6,7 @@ import {FormationDetailsComponent} from './formation-details/formation-details.c
 
 const routes: Routes = [
   { path: 'formation', component: FormationsTableComponent },
-  { path: '', component: FormationsTableComponent },
+  { path: '',   redirectTo: 'formation', pathMatch: 'full' },
   { path: 'formationDetails/:Code', component: FormationDetailsComponent }
 ];
 
