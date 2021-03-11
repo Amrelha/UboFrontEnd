@@ -1,5 +1,5 @@
 <mat-card >
-  <div *ngFor="let item of getDetails() | keyvalue">
+  <div *ngFor="let item of getDetails() | keyvalue: returnZero">
     <div *ngIf = "item.key == 'code'; then Niv else other"></div>
       <ng-template #other>
         <br>
@@ -11,6 +11,7 @@
       <ng-template #Niv><mat-card-title>{{item.value}}</mat-card-title></ng-template>
   </div>
   <br><br>
+  <app-formations-table></app-formations-table>
   <div class="center">
     <button (click)="retourner()" mat-raised-button color="primary">Retour</button>
   </div>

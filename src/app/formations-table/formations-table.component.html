@@ -1,4 +1,4 @@
-<div class="row ">
+<div class="row " *ngIf="this.activatedRoute.snapshot.url[0].path === 'formation'">
   <div class="col "><mat-form-field>
     <mat-label> <mat-icon>search</mat-icon><span class="Rechercher">Rechercher</span></mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. M2 <3" #input>
@@ -7,6 +7,7 @@
   <div class="col "> <button (click)="openDialog()" class="button" mat-raised-button ><mat-icon>add</mat-icon>Ajouter Formation</button> </div>
 </div>
 
+<h1><b>U.E:</b></h1>
 
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z6">
 
@@ -23,4 +24,3 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hoveringRow"></tr>
 </table>
-
