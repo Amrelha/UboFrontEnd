@@ -48,4 +48,8 @@ export class FormationDetailsComponent implements OnInit {
     this.router.navigate(['formation']);
   }
 
+  returnZero() {
+    return 0;
+}
+
 }
