@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, Input, ViewChild} from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ChangeDetectorRef } from '@angular/core';
@@ -45,6 +45,7 @@ export class FormationsTableComponent implements AfterViewInit {
   constructor(private cdref: ChangeDetectorRef, private dialog: MatDialog, private router: Router, public activatedRoute: ActivatedRoute) { }
 
   @ViewChild(MatSort) sort: MatSort;
+  @Input() isClickable = true;
 
 
   ngAfterViewInit() {
