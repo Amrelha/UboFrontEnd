@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
+
 
 export interface FormationDetails {
   code: string;
@@ -22,9 +23,11 @@ export interface FormationDetails {
 export class FormationDetailsComponent implements OnInit {
 
   code: string;
+  recherche: any;
   constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    this.recherche = history.state.data.search;
     this.route.queryParams
       .subscribe(params => {
           this.code = params.code;
@@ -45,7 +48,7 @@ export class FormationDetailsComponent implements OnInit {
   }
 
   retourner() {
-    this.router.navigate(['formation']);
+    this.router.navigate(['formation'], {state: {data: {search: this.recherche}}});
   }
 
   returnZero() {

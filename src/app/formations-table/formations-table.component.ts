@@ -39,10 +39,12 @@ export class FormationsTableComponent implements AfterViewInit {
 
   displayedColumns: string[];
   dataSource: any;
+  recherche: any;
 
 
   // tslint:disable-next-line:max-line-length
-  constructor(private cdref: ChangeDetectorRef, private dialog: MatDialog, private router: Router, public activatedRoute: ActivatedRoute) { }
+  constructor(private cdref: ChangeDetectorRef, private dialog: MatDialog,
+              private router: Router, public activatedRoute: ActivatedRoute) { }
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -62,6 +64,10 @@ export class FormationsTableComponent implements AfterViewInit {
     this.sort.direction = sortState.direction;
     this.sort.sortChange.emit(sortState);
     this.cdref.detectChanges();
+    if (this.activatedRoute.snapshot.url[0].path === 'formation'){
+      this.recherche = history.state.data.search;
+      this.dataSource.filter = this.recherche.trim().toLowerCase();
+    }
   }
 
   applyFilter(event: Event) {
@@ -81,8 +87,9 @@ export class FormationsTableComponent implements AfterViewInit {
     this.dialog.open(FormationFormComponent, dialogConfig);
   }
   Details(code){
-    this.router.navigate(['formationDetails/' + code]);
-
+    if (this.activatedRoute.snapshot.url[0].path === 'formation') {
+      this.router.navigate(['formationDetails/' + code], {state: {data: {search: this.recherche}}});
+    }
   }
 
 }

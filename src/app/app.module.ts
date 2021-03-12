@@ -19,7 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { DateAdapter, MatDateFormats, MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {MatDialogModule} from '@angular/material/dialog';
 import { RouterModule, Routes } from '@angular/router';
@@ -50,31 +50,32 @@ export const MY_FORMAT: MatDateFormats = {
     FormationFormComponent,
     FormationDetailsComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatTableModule,
-    MatSortModule,
-    MatInputModule,
-    MatButtonModule,
-    MatInputModule,
-    LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatNativeDateModule,
-    MatDatepickerModule,
-    ReactiveFormsModule,
-    MatDialogModule,
-    RouterModule,
-    AppRoutingModule,
-    MatSidenavModule,
-    MatCardModule
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatTableModule,
+        MatSortModule,
+        MatInputModule,
+        MatButtonModule,
+        MatInputModule,
+        LayoutModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        MatNativeDateModule,
+        MatDatepickerModule,
+        ReactiveFormsModule,
+        MatDialogModule,
+        RouterModule,
+        AppRoutingModule,
+        MatSidenavModule,
+        MatCardModule,
+        FormsModule
 
 
-  ],
+    ],
   providers: [
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMAT}, ],
