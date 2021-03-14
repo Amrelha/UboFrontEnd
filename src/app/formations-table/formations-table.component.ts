@@ -1,21 +1,23 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FormationFormComponent } from '../formation-form/formation-form.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormationService } from '../services/formation.service';
 export interface PeriodicElement {
   Code: string;
   Niveau: string;
   Libelle: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
+/* const ELEMENT_DATA: PeriodicElement[] = [
   { Niveau: "M2", Code: "Smart", Libelle: "imperdiet nec, leo. Morbi" },
   { Niveau: "L2", Code: "General Motors", Libelle: "lectus sit amet luctus vulputate," },
   { Niveau: "M1", Code: "Mahindra and Mahindra", Libelle: "Aliquam erat volutpat. Nulla facilisis." },
   { Niveau: "M2", Code: "JLR", Libelle: "orci, adipiscing non, luctus sit amet, faucibus ut, nulla. Cras" }, { Niveau: "L3", Code: "Toyota", Libelle: "Sed malesuada augue ut lacus. Nulla tincidunt, neque vitae semper" }, { Niveau: "L3", Code: "Dodge", Libelle: "nulla. Integer" }, { Niveau: "M1", Code: "Peugeot", Libelle: "auctor, nunc" }, { Niveau: "M2", Code: "Honda", Libelle: "placerat, orci lacus vestibulum lorem," }, { Niveau: "L2", Code: "RAM Trucks", Libelle: "id, blandit at, nisi. Cum sociis natoque penatibus" }, { Niveau: "M1", Code: "Mitsubishi Motors", Libelle: "non dui nec" }, { Niveau: "L3", Code: "Ferrari", Libelle: "vitae, erat." }, { Niveau: "L1", Code: "Cadillac", Libelle: "iaculis" }, { Niveau: "L2", Code: "JLR", Libelle: "mi. Duis risus odio, auctor vitae, aliquet nec, imperdiet" }, { Niveau: "L2", Code: "Mercedes-Benz", Libelle: "aliquet odio. Etiam" }, { Niveau: "M1", Code: "Acura", Libelle: "aliquet vel, vulputate eu, odio. Phasellus at augue id" }, { Niveau: "M1", Code: "Honda", Libelle: "velit dui, semper et, lacinia vitae, sodales at, velit." }, { Niveau: "L1", Code: "Citroën", Libelle: "cubilia Curae; Donec tincidunt." }, { Niveau: "L1", Code: "Honda", Libelle: "malesuada augue ut lacus. Nulla tincidunt, neque vitae semper egestas," }, { Niveau: "M2", Code: "Acura", Libelle: "felis ullamcorper viverra." }, { Niveau: "L1", Code: "Renault", Libelle: "at, nisi." }, { Niveau: "L2", Code: "Mahindra and Mahindra", Libelle: "ac, fermentum" }, { Niveau: "M1", Code: "Maruti Suzuki", Libelle: "bibendum sed, est. Nunc laoreet lectus quis massa. Mauris" }, { Niveau: "M1", Code: "Maruti Suzuki", Libelle: "euismod ac, fermentum vel, mauris. Integer sem elit, pharetra" }, { Niveau: "L1", Code: "BMW", Libelle: "mollis. Phasellus libero mauris, aliquam" }, { Niveau: "L1", Code: "Dacia", Libelle: "Etiam vestibulum massa rutrum magna." }, { Niveau: "L1", Code: "Hyundai Motors", Libelle: "orci luctus et" }, { Niveau: "L3", Code: "Jeep", Libelle: "parturient montes, nascetur ridiculus mus. Proin vel arcu eu odio" }, { Niveau: "L2", Code: "Maruti Suzuki", Libelle: "Nulla facilisi. Sed neque. Sed eget lacus. Mauris" }, { Niveau: "M1", Code: "Citroën", Libelle: "enim. Suspendisse aliquet, sem ut" }, { Niveau: "L1", Code: "Subaru", Libelle: "feugiat placerat" }, { Niveau: "M1", Code: "Suzuki", Libelle: "ante dictum mi, ac mattis velit justo nec ante." }, { Niveau: "L1", Code: "Kenworth", Libelle: "sagittis lobortis mauris." }, { Niveau: "M1", Code: "Isuzu", Libelle: "eget, ipsum. Donec sollicitudin adipiscing ligula. Aenean gravida nunc sed" }, { Niveau: "M1", Code: "Vauxhall", Libelle: "In at pede. Cras vulputate velit" }, { Niveau: "L1", Code: "Dongfeng Motor", Libelle: "et netus et malesuada fames ac" }, { Niveau: "L3", Code: "Jeep", Libelle: "condimentum. Donec at arcu. Vestibulum ante" }, { Niveau: "M1", Code: "FAW", Libelle: "vitae, erat. Vivamus nisi." }, { Niveau: "M1", Code: "MINI", Libelle: "semper pretium neque. Morbi quis" }, { Niveau: "L2", Code: "Mercedes-Benz", Libelle: "metus vitae velit egestas lacinia. Sed congue, elit sedmetus vitae velit egestas lacinia. Sed congue, elit sedmetus vitae velit egestas lacinia. Sed congue, elit sedmetus vitae velit egestas lacinia. Sed congue, elit sedmetus vitae velit egestas lacinia. Sed congue, elit sedmetus vitae velit egestas lacinia. Sed congue, elit sedmetus vitae velit egestas lacinia. Sed congue, elit sedmetus vitae velit egestas lacinia. Sed congue, elit sed" }
-];
+]; */
 
 
 @Component({
@@ -23,22 +25,29 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './formations-table.component.html',
   styleUrls: ['./formations-table.component.css']
 })
-export class FormationsTableComponent implements AfterViewInit {
+export class FormationsTableComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['Niveau', 'Code', 'Libelle'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
-
-  constructor(private cdref: ChangeDetectorRef, private dialog: MatDialog) { }
+  ElementData: PeriodicElement[] = new Array();
+  dataSource: any ;
+  /* CodeF: string; */
+  
+  constructor(private cdref: ChangeDetectorRef, private dialog: MatDialog,
+              private router: Router, private  route: ActivatedRoute,
+              private formationService: FormationService) { }
 
   @ViewChild(MatSort) sort: MatSort;
 
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
 
-    const sortState: Sort = { active: this.displayedColumns[0], direction: 'asc' };
-    this.sort.active = sortState.active;
-    this.sort.direction = sortState.direction;
-    this.sort.sortChange.emit(sortState);
-    this.cdref.detectChanges();
+      const sortState: Sort = { active: this.displayedColumns[0], direction: 'asc' };
+      this.sort.active = sortState.active;
+      this.sort.direction = sortState.direction;
+      this.sort.sortChange.emit(sortState);
+      this.cdref.detectChanges();
+    }, 2000);
+
   }
 
   applyFilter(event: Event) {
@@ -57,4 +66,31 @@ export class FormationsTableComponent implements AfterViewInit {
     dialogConfig.disableClose = true;
     this.dialog.open(FormationFormComponent, dialogConfig);
   }
+
+  ngOnInit(){
+    this.formationService.getAllFormation().subscribe((data: any[])=>{
+
+      data.forEach((element, index) => {
+        this.ElementData.push(
+          {
+            Code:  element.codeFormation,
+            Niveau: element.diplome,
+            Libelle: element.nomFormation
+          }
+        );
+      },);
+    });
+      this.dataSource = new MatTableDataSource(this.ElementData);
+      /* this.CodeF = this.route.snapshot.params['Code']; */
+  }
+
+  Details(code: any){
+    this.router.navigate(['/formationDetails/code']);
+    console.log(code);
+
+ }
+
+    
+
+
 }
