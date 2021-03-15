@@ -10,16 +10,6 @@
                  {{getErrocMessage("codeFormation")}} 
             </mat-error>
         </mat-form-field>
-        
-          <mat-form-field class="example-full-width">
-            <mat-label>Diplome</mat-label>
-            <input matInput placeholder="Master" formControlName="diplome">
-            <mat-error  *ngIf="formationForm.invalid">
-                {{getErrocMessage("diplome")}} 
-           </mat-error>
-          </mat-form-field>
-
-         
 
           <mat-form-field class="example-full-width">
             <mat-label>N° de l'année de formation</mat-label>
@@ -44,8 +34,8 @@
                     <mat-label>Diplome</mat-label>
                     <select matNativeControl  formControlName="diplome" >
                       <option value="DUT">DUT</option>
-                      <option value="licence"  >licence</option>
-                      <option value="master"  >master</option>
+                      <option value="L"  >licence</option>
+                      <option value="M"  >master</option>
                       
                     </select>
                     <mat-error *ngIf="formationForm.invalid">
@@ -57,8 +47,8 @@
                 <mat-form-field class="doubleDip" appearance="fill">
                     <mat-label>Double diplome</mat-label>
                     <select matNativeControl  formControlName="doubleDiplome" >
-                      <option value="true">Vrai</option>
-                      <option value="false"  >Faux</option>
+                      <option value="o">Vrai</option>
+                      <option value="n">Faux</option>
                     
                     </select>
                     <mat-error *ngIf="formationForm.invalid">
@@ -86,7 +76,7 @@
             <mat-datepicker #picker1 ></mat-datepicker>
         </mat-form-field>
         <div class="row ">
-            <div class="col"><button mat-raised-button color="warn" (click)="fermer()" >fermer</button></div>
+            <div class="col"><button mat-raised-button color="warn" type="button" (click)="fermer()" >fermer</button></div>
             <div class="col"></div>
             <div class="col"><button class="submitButton" mat-raised-button color="primary" type="submit" [disabled]="!formationForm.valid">Ajouter</button></div>
         </div>

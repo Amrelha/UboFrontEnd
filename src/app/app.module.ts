@@ -19,14 +19,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { DateAdapter, MatDateFormats, MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {MatDialogModule} from '@angular/material/dialog';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { FormationDetailsComponent } from './formation-details/formation-details.component';
 import {MatCardModule} from '@angular/material/card';
-
+import { FormationService } from './services/formation.service';
+import { HttpClientModule } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 
 export const MY_FORMAT: MatDateFormats = {
   parse: {
@@ -57,10 +59,8 @@ export const MY_FORMAT: MatDateFormats = {
     MatSortModule,
     MatInputModule,
     MatButtonModule,
-    MatInputModule,
     LayoutModule,
     MatToolbarModule,
-    MatButtonModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
@@ -70,14 +70,16 @@ export const MY_FORMAT: MatDateFormats = {
     MatDialogModule,
     RouterModule,
     AppRoutingModule,
-    MatSidenavModule,
-    MatCardModule
-
+    MatCardModule,
+    HttpClientModule,
+    FormsModule
 
   ],
-  providers: [
+  providers: [   
+    FormationService,
+    DatePipe,
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMAT}, ],
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMAT} ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

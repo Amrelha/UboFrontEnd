@@ -43,3 +43,7 @@ button{
     margin-top: 1%;
 
 }
+
+tr:hover{
+  background-color: #cecfd1;
+}

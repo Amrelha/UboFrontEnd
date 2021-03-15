@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
+import { FormationService } from '../services/formation.service';
+
 
 export interface FormationDetails {
   code: string;
@@ -22,17 +24,33 @@ export interface FormationDetails {
 export class FormationDetailsComponent implements OnInit {
 
   code: string;
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  recherche: any;
+  data: any = new Object() ;
+  constructor(private route: ActivatedRoute, private router: Router,
+              private formationService: FormationService) { }
 
   ngOnInit() {
-    this.route.queryParams
-      .subscribe(params => {
-          this.code = params.code;
-        }
-      );
+    this.recherche = history.state.data;
+
+     this.code = this.route.snapshot.paramMap.get('Code');
+      this.formationService.getDetailsFormation(this.code).subscribe((res)=>{
+          this.data = {
+            code: res["codeFormation"],
+            diplome: res["diplome"],
+            no_annee: res["n0Annee"],
+            nom_formation: res["nomFormation"],
+            double_diplome: res["doubleDiplome"],
+            debut_habilitation: res["debutAccreditation"],
+            fin_habilitation: res["finAccreditation"]
+          };
+        
+
+      });
+
   }
 
-  getDetails() : any {
+/*   getDetails() : any {
+    console.log(this.data);
     return Object({
       code: 'DOSI',
       diplome: 'Example',
@@ -42,10 +60,10 @@ export class FormationDetailsComponent implements OnInit {
       debut_habilitation: '25/11/2020',
       fin_habilitation: '25/11/2021'
     });
-  }
+  } */
 
   retourner() {
-    this.router.navigate(['formation']);
+    this.router.navigate(['formation'], {state: {data:  this.recherche}});
   }
 
   returnZero() {
