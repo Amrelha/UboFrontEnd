@@ -29,6 +29,7 @@ import {MatCardModule} from '@angular/material/card';
 import { FormationService } from './services/formation.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { UeService } from './services/ue.service';
 
 export const MY_FORMAT: MatDateFormats = {
   parse: {
@@ -78,6 +79,7 @@ export const MY_FORMAT: MatDateFormats = {
   providers: [   
     FormationService,
     DatePipe,
+    UeService,
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMAT} ],
   bootstrap: [AppComponent]

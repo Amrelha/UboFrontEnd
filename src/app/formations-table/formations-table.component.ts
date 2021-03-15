@@ -6,6 +6,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FormationFormComponent } from '../formation-form/formation-form.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormationService } from '../services/formation.service';
+import { UeService } from '../services/ue.service';
 
 
 export interface FormationInterface {
@@ -42,7 +43,7 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
   
   constructor(private cdref: ChangeDetectorRef, private dialog: MatDialog,
               private router: Router, public route: ActivatedRoute,
-              private formationService: FormationService) { }
+              private formationService: FormationService, private ueService: UeService) { }
 
   @ViewChild(MatSort) sort: MatSort;
   @Input() isClickable = true;
@@ -124,9 +125,10 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
     else if (this.route.snapshot.url[0].path === 'formationDetails'){
       this.displayedColumns = ['Code', 'Semestre', 'Description'];
       
-      this.formationService.getAllFormation().subscribe((data: any[])=>{
+      this.ueService.getAllUe().subscribe((data: any[])=>{
 
-        data.forEach((element, index) => {
+        console.log(data)
+/*         data.forEach((element, index) => {
           this.ElementData.push(
             {
               Code:  element.codeFormation,
@@ -134,7 +136,7 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
               Libelle: element.nomFormation
             }
           );
-        },);
+        },); */
       });
         this.dataSource = new MatTableDataSource(this.ElementData);
 
