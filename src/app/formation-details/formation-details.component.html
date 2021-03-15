@@ -1,5 +1,5 @@
 <mat-card >
-  <div *ngFor="let item of getDetails() | keyvalue: returnZero">
+  <div *ngFor="let item of data | keyvalue: returnZero">
     <div *ngIf = "item.key == 'code'; then Niv else other"></div>
       <ng-template #other>
           <br>
