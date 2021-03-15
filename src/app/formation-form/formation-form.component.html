@@ -58,6 +58,16 @@
               </div>
           </div>
 
+          <mat-form-field appearance="fill">
+            <mat-label>UE</mat-label>
+            <mat-select formControlName="ueFormation" multiple>
+              <mat-option *ngFor="let ue of ueList" [value]="ue.id">{{ue.designation}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formationForm.invalid">
+              {{getErrocMessage("ueFormation")}} 
+         </mat-error>
+          </mat-form-field>
+
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Date de début de validité de la formation</mat-label>
             <input matInput [matDatepicker]="picker" placeholder="JJ/MM/YYYY" formControlName="dateDebut" >

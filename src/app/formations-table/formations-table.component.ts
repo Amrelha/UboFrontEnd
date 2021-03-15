@@ -37,9 +37,11 @@ const UE_DATA: UEInterface[] = [
 export class FormationsTableComponent implements AfterViewInit, OnInit {
   displayedColumns: string[];
   ElementData: FormationInterface[] = new Array();
+  UElementData: UEInterface[] = new Array();
   dataSource: any ;
   recherche: any;
   etat: string = "";
+
   
   constructor(private cdref: ChangeDetectorRef, private dialog: MatDialog,
               private router: Router, public route: ActivatedRoute,
@@ -124,21 +126,21 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
     }
     else if (this.route.snapshot.url[0].path === 'formationDetails'){
       this.displayedColumns = ['Code', 'Semestre', 'Description'];
-      
-      this.ueService.getAllUe().subscribe((data: any[])=>{
+      console.log("codeFormation "+this.route.snapshot.paramMap.get('Code'));
+      this.ueService.getFormationUE(this.route.snapshot.paramMap.get('Code')).subscribe((data: any[])=>{
 
         console.log(data)
-/*         data.forEach((element, index) => {
-          this.ElementData.push(
+        data.forEach((element, index) => {
+          this.UElementData.push(
             {
-              Code:  element.codeFormation,
-              Niveau: element.diplome,
-              Libelle: element.nomFormation
+              Code:  element.id.codeFormation,
+              Semestre: element.semestre,
+              Description: element.description
             }
           );
-        },); */
+        },);
       });
-        this.dataSource = new MatTableDataSource(this.ElementData);
+        this.dataSource = new MatTableDataSource(this.UElementData);
 
     }
 
@@ -157,7 +159,10 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
 
   Details(code){
     if (this.route.snapshot.url[0].path === 'formation') {
+      
       this.router.navigate(['formationDetails/' + code], {state: {data:  this.recherche}});
+
+     
     }
   }
 
@@ -175,10 +180,10 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
       },);
     });
       this.dataSource = new MatTableDataSource(this.ElementData);
-   /*  setTimeout(() => {
+    setTimeout(() => {
       this.table.renderRows();
-    }, 2000); */
-    this.table.renderRows();
+    }, 2000);
+    /* this.table.renderRows(); */
       
   }
 

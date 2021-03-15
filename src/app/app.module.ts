@@ -30,6 +30,7 @@ import { FormationService } from './services/formation.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { UeService } from './services/ue.service';
+import { MatSelectModule } from '@angular/material/select';
 
 export const MY_FORMAT: MatDateFormats = {
   parse: {
@@ -73,7 +74,8 @@ export const MY_FORMAT: MatDateFormats = {
     AppRoutingModule,
     MatCardModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatSelectModule
 
   ],
   providers: [   

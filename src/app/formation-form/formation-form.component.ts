@@ -5,6 +5,34 @@ import { FormBuilder, FormControl, FormControlName, FormGroup, Validators } from
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { FormationService } from '../services/formation.service';
+import { UeService } from '../services/ue.service';
+
+export interface UEInterface{
+  designation: string,
+  id:{
+    codeFormation: string,
+    codeUe: string
+  }
+}
+
+export interface UniteEnseignements{
+  id: {
+    codeFormation: string,
+    codeUe: string
+  },
+    description: string,
+    designation: string,
+    nbhCm: number,
+    nbhTd: number,
+    nbhTp: number,
+    semestre: string,
+    elementConstitutifs: [{ }],
+    enseignant: {}
+   
+
+  }
+
+
 
 @Component({
   selector: 'app-formation-form',
@@ -16,12 +44,27 @@ export class FormationFormComponent implements OnInit {
   code:any;
   formationForm: FormGroup;
   added: boolean = false;
+  ueList: UEInterface[] = new Array();
   constructor(private formBuilder: FormBuilder, private dialog: MatDialogRef<FormationFormComponent>,
               private formationService: FormationService, private datePipe: DatePipe,
-              private router: Router) { }
+              private router: Router, private ueService: UeService) { }
  
   ngOnInit(): void {
     this.initForm();
+    this.ueService.getAllUe().subscribe((res: any[])=>{
+      res.forEach(element => {
+        this.ueList.push({
+          designation: element.designation,
+          id:{
+            codeFormation: element.id.codeFormation,
+            codeUe: element.id.codeUe
+          }
+        })
+      });
+    });
+    console.log(this.ueList);
+
+
   }
 
   initForm(){
@@ -33,6 +76,7 @@ export class FormationFormComponent implements OnInit {
       doubleDiplome: ['n',[Validators.required]],
       dateDebut: ['',[]],
       dateFin: ['',[]],
+      ueFormation:['',[Validators.required]]
     });
   }
 
@@ -51,6 +95,24 @@ export class FormationFormComponent implements OnInit {
   onSubmitForm(){
     console.log('submit');
     const formValue = this.formationForm.value;
+    const idList:UniteEnseignements[] = new Array();
+    formValue.ueFormation.forEach(element => {
+      idList.push({
+        id: {
+          codeFormation: element.codeFormation,
+          codeUe: element.codeUe
+        },
+          description: "",
+          designation: "",
+          nbhCm: null,
+          nbhTd: null,
+          nbhTp: null,
+          semestre: "",
+          elementConstitutifs: [{ }],
+          enseignant: {}
+      })
+    });
+    console.log(idList)
     let data = {
       "codeFormation": formValue.codeFormation,
       "debutAccreditation": this.datePipe.transform(formValue.dateDebut, 'yyyy-MM-dd'),
@@ -58,7 +120,8 @@ export class FormationFormComponent implements OnInit {
       "finAccreditation": this.datePipe.transform(formValue.dateFin, 'yyyy-MM-dd'),
       "n0Annee": formValue.numAnnee,
       "nomFormation": formValue.nomFormation,
-      "diplome": formValue.diplome
+      "diplome": formValue.diplome,
+      "uniteEnseignements":idList
     }
 
 
@@ -66,7 +129,7 @@ export class FormationFormComponent implements OnInit {
       this.added = res;
       this.dialog.close({data:this.added});
     });
-    /* this.router.navigate(['formation']) */
+    
     
   }
 

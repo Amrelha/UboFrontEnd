@@ -1,14 +1,33 @@
-<mat-card >
-  <div *ngFor="let item of data | keyvalue: returnZero">
-    <div *ngIf = "item.key == 'code'; then Niv else other"></div>
-      <ng-template #other>
-          <br>
-          <span class="titleItems">{{item.key}} : </span>
-          <span style="font-family: sans-serif;font-size: 16px;">{{item.value}}</span>
-      </ng-template>
-      <ng-template #Niv><mat-card-title>{{item.value}}</mat-card-title></ng-template>
-  </div>
-  <br><br>
+<mat-card>
+
+    <mat-card-title>{{this.data.code}}</mat-card-title>
+    <br />
+    <mat-card-title>
+      <span class="titleItems">Diplome : </span>
+      <span style="font-family: sans-serif;font-size: 16px;">{{data.diplome}}</span>
+    </mat-card-title>
+    
+    <br />
+    <mat-card-title>
+      <span class="titleItems">Nombre d'année : </span>
+      <span style="font-family: sans-serif;font-size: 16px;">{{data.no_annee}}</span>
+    </mat-card-title>
+    <br>
+    <mat-card-title>
+      <span class="titleItems">Nom Formation : </span>
+      <span style="font-family: sans-serif;font-size: 16px;">{{data.nom_formation}}</span>
+    </mat-card-title>
+    <br>
+    <mat-card-title>
+      <span class="titleItems">Double Diplome : </span>
+      <span style="font-family: sans-serif;font-size: 16px;">{{data.double_diplome}}</span>
+    </mat-card-title>
+    <br>
+    <mat-card-title>
+      <span class="titleItems">Debut Habilitation : </span>
+      <span style="font-family: sans-serif;font-size: 16px;">{{data.debut_habilitation}}</span>
+    </mat-card-title>
+  <br><br> 
   <app-formations-table [isClickable]="false"></app-formations-table>
   <div class="center">
     <button (click)="retourner()" mat-raised-button color="primary">Retour</button>

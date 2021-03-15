@@ -23,7 +23,6 @@ addFormation(data: any): Observable<any>{
 
 getDetailsFormation(code:any){
     return this.httpClient.get(this.mainUrl+"Formations/code="+code);
-    
 }
 
 }

@@ -12,5 +12,10 @@ getAllUe(){
     return this.httpClient.get(this.mainUrl+"allUniteEnseignement");
 }
 
+getFormationUE(code:any){
+    console.log(code);
+    return this.httpClient.get(this.mainUrl+"UniteEnseignements/Formation/code="+code);
+}
+
 
 }
