@@ -1,35 +1,16 @@
-
-
-  <div>
-    <mat-card-title>{{code}}</mat-card-title>
-    <mat-card>
-      <mat-card-title>Diplome</mat-card-title>
-      <mat-card-content>{{data.diplome}}</mat-card-content>
-    </mat-card>
-    <mat-card>
-      <mat-card-title>Nombre d'année</mat-card-title>
-      <mat-card-content>{{data.no_annee}}</mat-card-content>
-    </mat-card>
-    <mat-card>
-      <mat-card-title>Nom Formation</mat-card-title>
-      <mat-card-content>{{data.nom_formation}}</mat-card-content>
-    </mat-card>
-    <mat-card>
-      <mat-card-title>Double Diplome</mat-card-title>
-      <mat-card-content>{{data.double_diplome}}</mat-card-content>
-    </mat-card>
-    <mat-card>
-      <mat-card-title>Debut Habilitation</mat-card-title>
-      <mat-card-content>{{data.debut_habilitation}}</mat-card-content>
-    </mat-card>
-    <mat-card>
-      <mat-card-title>Fin Habilitation</mat-card-title>
-      <mat-card-content>{{data.fin_habilitation}}</mat-card-content>
-    </mat-card>
+<mat-card >
+  <div *ngFor="let item of data | keyvalue: returnZero">
+    <div *ngIf = "item.key == 'code'; then Niv else other"></div>
+      <ng-template #other>
+          <br>
+          <span class="titleItems">{{item.key}} : </span>
+          <span style="font-family: sans-serif;font-size: 16px;">{{item.value}}</span>
+      </ng-template>
+      <ng-template #Niv><mat-card-title>{{item.value}}</mat-card-title></ng-template>
   </div>
   <br><br>
   <app-formations-table [isClickable]="false"></app-formations-table>
   <div class="center">
     <button (click)="retourner()" mat-raised-button color="primary">Retour</button>
   </div>
-
+</mat-card>
