@@ -34,10 +34,10 @@ export class FormationDetailsComponent implements OnInit {
 
   getDetails() : any {
     return Object({
-      code: 'example',
-      diplome: 'example',
+      code: 'DOSI',
+      diplome: 'Example',
       no_annee: 2,
-      nom_formation: 'example',
+      nom_formation: 'Développement logiciel des systèmes d\'information',
       double_diplome: 'OUI',
       debut_habilitation: '25/11/2020',
       fin_habilitation: '25/11/2021'

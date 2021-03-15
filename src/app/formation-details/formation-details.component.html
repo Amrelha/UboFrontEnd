@@ -2,11 +2,9 @@
   <div *ngFor="let item of getDetails() | keyvalue: returnZero">
     <div *ngIf = "item.key == 'code'; then Niv else other"></div>
       <ng-template #other>
-        <br>
-        <mat-card>
-          <mat-card-title>{{item.key}}</mat-card-title>
-          <mat-card-content>{{item.value}}</mat-card-content>
-        </mat-card>
+          <br>
+          <span class="titleItems">{{item.key}} : </span>
+          <span style="font-family: sans-serif;font-size: 16px;">{{item.value}}</span>
       </ng-template>
       <ng-template #Niv><mat-card-title>{{item.value}}</mat-card-title></ng-template>
   </div>
