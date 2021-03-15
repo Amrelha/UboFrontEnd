@@ -21,4 +21,9 @@ addFormation(data: any): Observable<any>{
     return this.httpClient.post(this.mainUrl+"formation", data, {headers: headers});
 }
 
+getDetailsFormation(code:any){
+    return this.httpClient.get(this.mainUrl+"Formations/code="+code);
+    
+}
+
 }

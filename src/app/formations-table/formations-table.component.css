@@ -12,6 +12,10 @@ th, td {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+tr.hoveringRow:hover{
+  cursor: pointer;
+  background-color: #f3f5f9;
+}
 .mat-form-field {
   font-size: 14px;
   width: 100%;
@@ -31,14 +35,15 @@ th, td {
 
 
 button{
-  position:relative; 
-    display:inline-block; 
+  position:relative;
+    display:inline-block;
     float:right;
 
     background-color: rgb(201 203 212);
     margin-top: 1%;
 
 }
+
 tr:hover{
   background-color: #cecfd1;
 }

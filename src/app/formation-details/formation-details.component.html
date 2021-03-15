@@ -1,23 +1,35 @@
-<mat-card >
-    <br>
-    <mat-card-title class="center"> Eleve-1023849</mat-card-title>
-    <br><br>
+
+
+  <div>
+    <mat-card-title>{{code}}</mat-card-title>
     <mat-card>
-      <mat-card-title>Nom :</mat-card-title>
-      <mat-card-content>HAMZAOUI</mat-card-content>
+      <mat-card-title>Diplome</mat-card-title>
+      <mat-card-content>{{data.diplome}}</mat-card-content>
     </mat-card>
-    <br>
     <mat-card>
-      <mat-card-title>Prénom :</mat-card-title>
-      <mat-card-content>Aymen</mat-card-content>
+      <mat-card-title>Nombre d'année</mat-card-title>
+      <mat-card-content>{{data.no_annee}}</mat-card-content>
     </mat-card>
-    <br>
     <mat-card>
-      <mat-card-title>Age :</mat-card-title>
-      <mat-card-content>22 ans</mat-card-content>
+      <mat-card-title>Nom Formation</mat-card-title>
+      <mat-card-content>{{data.nom_formation}}</mat-card-content>
     </mat-card>
-    <br><br>
-    <div class="center">
-      <button mat-raised-button color="primary">Retour</button>
-    </div>
-  </mat-card>
+    <mat-card>
+      <mat-card-title>Double Diplome</mat-card-title>
+      <mat-card-content>{{data.double_diplome}}</mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-title>Debut Habilitation</mat-card-title>
+      <mat-card-content>{{data.debut_habilitation}}</mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-title>Fin Habilitation</mat-card-title>
+      <mat-card-content>{{data.fin_habilitation}}</mat-card-content>
+    </mat-card>
+  </div>
+  <br><br>
+  <app-formations-table [isClickable]="false"></app-formations-table>
+  <div class="center">
+    <button (click)="retourner()" mat-raised-button color="primary">Retour</button>
+  </div>
+

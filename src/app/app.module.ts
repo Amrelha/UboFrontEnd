@@ -19,7 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { DateAdapter, MatDateFormats, MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {MatDialogModule} from '@angular/material/dialog';
 import { RouterModule, Routes } from '@angular/router';
@@ -59,10 +59,8 @@ export const MY_FORMAT: MatDateFormats = {
     MatSortModule,
     MatInputModule,
     MatButtonModule,
-    MatInputModule,
     LayoutModule,
     MatToolbarModule,
-    MatButtonModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
@@ -72,11 +70,10 @@ export const MY_FORMAT: MatDateFormats = {
     MatDialogModule,
     RouterModule,
     AppRoutingModule,
-    MatSidenavModule,
     MatCardModule,
-    HttpClientModule
- 
-    
+    HttpClientModule,
+    FormsModule
+
   ],
   providers: [   
     FormationService,
