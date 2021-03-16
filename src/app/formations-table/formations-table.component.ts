@@ -133,7 +133,7 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
         data.forEach((element, index) => {
           this.UElementData.push(
             {
-              Code:  element.id.codeFormation,
+              Code:  element.id.codeUe,
               Semestre: element.semestre,
               Description: element.description
             }

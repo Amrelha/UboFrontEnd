@@ -4,7 +4,9 @@
     <br />
     <mat-card-title>
       <span class="titleItems">Diplome : </span>
-      <span style="font-family: sans-serif;font-size: 16px;">{{data.diplome}}</span>
+      <span  *ngIf="data.diplome=='L'" style="font-family: sans-serif;font-size: 16px;">Licence</span>
+      <span  *ngIf="data.diplome=='M'" style="font-family: sans-serif;font-size: 16px;">Master</span>
+      <span  *ngIf="data.diplome=='DUT'" style="font-family: sans-serif;font-size: 16px;">DUT</span>
     </mat-card-title>
     
     <br />
@@ -20,7 +22,8 @@
     <br>
     <mat-card-title>
       <span class="titleItems">Double Diplome : </span>
-      <span style="font-family: sans-serif;font-size: 16px;">{{data.double_diplome}}</span>
+      <span *ngIf="data.double_diplome=='n' || data.double_diplome=='N' " style="font-family: sans-serif;font-size: 16px;">Non</span>
+      <span *ngIf="data.double_diplome=='O' || data.double_diplome=='o'" style="font-family: sans-serif;font-size: 16px;">Oui</span>
     </mat-card-title>
     <br>
     <mat-card-title>
