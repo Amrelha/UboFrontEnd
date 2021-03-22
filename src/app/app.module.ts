@@ -31,6 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { UeService } from './services/ue.service';
 import { MatSelectModule } from '@angular/material/select';
+import { TextMaskModule } from 'angular2-text-mask';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 export const MY_FORMAT: MatDateFormats = {
   parse: {
@@ -75,10 +77,11 @@ export const MY_FORMAT: MatDateFormats = {
     MatCardModule,
     HttpClientModule,
     FormsModule,
-    MatSelectModule
-
+    MatSelectModule,
+    TextMaskModule,
+    MatCheckboxModule
   ],
-  providers: [   
+  providers: [
     FormationService,
     DatePipe,
     UeService,

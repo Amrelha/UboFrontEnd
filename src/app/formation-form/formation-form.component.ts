@@ -6,6 +6,8 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
 import { Router } from '@angular/router';
 import { FormationService } from '../services/formation.service';
 import { UeService } from '../services/ue.service';
+import { TextMaskModule } from 'angular2-text-mask';
+import {DateAdapter} from '@angular/material/core';
 
 export interface UEInterface{
   designation: string,
@@ -28,7 +30,7 @@ export interface UniteEnseignements{
     semestre: string,
     elementConstitutifs: [{ }],
     enseignant: {}
-   
+
 
   }
 
@@ -40,15 +42,15 @@ export interface UniteEnseignements{
   styleUrls: ['./formation-form.component.scss']
 })
 export class FormationFormComponent implements OnInit {
-  
-  code:any;
+  code: any;
   formationForm: FormGroup;
   added: boolean = false;
+  checked: string = 'n';
   ueList: UEInterface[] = new Array();
   constructor(private formBuilder: FormBuilder, private dialog: MatDialogRef<FormationFormComponent>,
               private formationService: FormationService, private datePipe: DatePipe,
-              private router: Router, private ueService: UeService) { }
- 
+              private router: Router, private ueService: UeService, private adapter: DateAdapter<any>) { }
+
   ngOnInit(): void {
     this.initForm();
     this.ueService.getAllUe().subscribe((res: any[])=>{
@@ -63,7 +65,7 @@ export class FormationFormComponent implements OnInit {
       });
     });
     console.log(this.ueList);
-
+    this.adapter.setLocale('fr');
 
   }
 
@@ -71,7 +73,7 @@ export class FormationFormComponent implements OnInit {
     this.formationForm = this.formBuilder.group({
       codeFormation: ['',[Validators.required, Validators.minLength(6), Validators.maxLength(10)]],
       diplome: ['',[Validators.required]],
-      numAnnee: ['',[Validators.required,  ]],
+      numAnnee: ['',[Validators.required, Validators.min(1), Validators.max(3), Validators.pattern('^[0-9]*$') ]],
       nomFormation: ['',[Validators.required]],
       doubleDiplome: ['n',[Validators.required]],
       dateDebut: ['',[]],
@@ -87,9 +89,15 @@ export class FormationFormComponent implements OnInit {
     if(this.formationForm.get(formControlName).hasError('required'))
       return "Ce champs est obligatoire";
     if(this.formationForm.get(formControlName).hasError('maxlength'))
-      return "Le nombre Maximum de caractère est 10 ";
-    else
-      return "Le nombre Minimum de caractère est 6";
+      return "10 caractères maximum ";
+    if(this.formationForm.get(formControlName).hasError('minlength'))
+      return "6 caractères minimum";
+    if(this.formationForm.get(formControlName).hasError('min'))
+      return "l'année doit être comprise entre 1 et 3";
+    if(this.formationForm.get(formControlName).hasError('max'))
+      return "l'année doit être comprise entre 1 et 3";
+    if(this.formationForm.get(formControlName).hasError('pattern'))
+      return "l'année doit être un entier";
   }
 
   onSubmitForm(){
@@ -112,11 +120,15 @@ export class FormationFormComponent implements OnInit {
           enseignant: {}
       })
     });
-    console.log(idList)
+    if(formValue.dd === true){
+      this.checked = 'o';
+    }
+    else
+      this.checked = 'n';
     let data = {
       "codeFormation": formValue.codeFormation,
       "debutAccreditation": this.datePipe.transform(formValue.dateDebut, 'yyyy-MM-dd'),
-      "doubleDiplome": formValue.doubleDiplome,
+      "doubleDiplome": this.checked,
       "finAccreditation": this.datePipe.transform(formValue.dateFin, 'yyyy-MM-dd'),
       "n0Annee": formValue.numAnnee,
       "nomFormation": formValue.nomFormation,
@@ -129,8 +141,8 @@ export class FormationFormComponent implements OnInit {
       this.added = res;
       this.dialog.close({data:this.added});
     });
-    
-    
+
+
   }
 
   fermer(){

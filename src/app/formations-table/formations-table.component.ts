@@ -11,12 +11,12 @@ import { UeService } from '../services/ue.service';
 
 export interface FormationInterface {
   Code: string;
-  Niveau: string;
-  Libelle: string;
+  Diplôme: string;
+  Libellé: string;
 }
 
 export interface UEInterface {
-  Code: string;
+  Nom: string;
   Semestre: string;
   Description: string;
 }
@@ -24,8 +24,8 @@ export interface UEInterface {
 
 
 const UE_DATA: UEInterface[] = [
-  { Code: "JAVA", Semestre: "S5", Description: "Programmation en Java" },
-  { Code: "JEE", Semestre: "S6", Description: "Programmation en J2EE" }
+  { Nom: "JAVA", Semestre: "S5", Description: "Programmation en Java" },
+  { Nom: "JEE", Semestre: "S6", Description: "Programmation en J2EE" }
 ];
 
 
@@ -42,7 +42,7 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
   recherche: any;
   etat: string = "";
 
-  
+
   constructor(private cdref: ChangeDetectorRef, private dialog: MatDialog,
               private router: Router, public route: ActivatedRoute,
               private formationService: FormationService, private ueService: UeService) { }
@@ -62,11 +62,10 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
       this.cdref.detectChanges();
       if (this.route.snapshot.url[0].path === 'formation' && history.state.data != undefined){
 
-        console.log("tessst")
         this.recherche = history.state.data;
         this.dataSource.filter = this.recherche.trim().toLowerCase();
       }
-    }, 2000);
+    }, 0);
 
   }
 
@@ -76,17 +75,16 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
   }
 
   isNiveau(column: string): boolean {
-    return column === "Niveau";
+    return column === 'Diplôme';
   }
   openDialog() {
-    console.log("test");
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = "40%";
     dialogConfig.disableClose = true;
     const dialogRef = this.dialog.open(FormationFormComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(res =>{
-      
+
       if( res.data == true ){
         console.log(res);
         this.renderRowFunction();
@@ -109,38 +107,35 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
   ngOnInit(){
 
     if (this.route.snapshot.url[0].path === 'formation'){
-      this.displayedColumns = ['Niveau', 'Code', 'Libelle'];
-      this.formationService.getAllFormation().subscribe((data: any[])=>{
-
+      this.displayedColumns = ['Diplôme', 'Code', 'Libellé'];
+      this.formationService.getAllFormation().subscribe((data: any[]) => {
         data.forEach((element, index) => {
           this.ElementData.push(
             {
-              Code:  element.codeFormation,
-              Niveau: element.diplome,
-              Libelle: element.nomFormation
+              Code:  element.codeFormation.toUpperCase(),
+              Diplôme: element.diplome,
+              Libellé: element.nomFormation
             }
           );
-        },);
+        }, );
       });
-        this.dataSource = new MatTableDataSource(this.ElementData);
+      this.dataSource = new MatTableDataSource(this.ElementData);
     }
     else if (this.route.snapshot.url[0].path === 'formationDetails'){
-      this.displayedColumns = ['Code', 'Semestre', 'Description'];
-      console.log("codeFormation "+this.route.snapshot.paramMap.get('Code'));
-      this.ueService.getFormationUE(this.route.snapshot.paramMap.get('Code')).subscribe((data: any[])=>{
-
-        console.log(data)
+      this.displayedColumns = ['Nom', 'Semestre', 'Description'];
+      console.log('codeFormation ' + this.route.snapshot.paramMap.get('Nom'));
+      this.ueService.getFormationUE(this.route.snapshot.paramMap.get('Nom')).subscribe((data: any[]) => {
         data.forEach((element, index) => {
           this.UElementData.push(
             {
-              Code:  element.id.codeUe,
+              Nom:  element.id.codeUe,
               Semestre: element.semestre,
               Description: element.description
             }
           );
-        },);
+        }, );
       });
-        this.dataSource = new MatTableDataSource(this.UElementData);
+      this.dataSource = new MatTableDataSource(this.UElementData);
 
     }
 
@@ -154,37 +149,37 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
 
  } */
 
-    
+
 
 
   Details(code){
     if (this.route.snapshot.url[0].path === 'formation') {
-      
+
       this.router.navigate(['formationDetails/' + code], {state: {data:  this.recherche}});
 
-     
+
     }
   }
 
   renderRowFunction(){
-    this.formationService.getAllFormation().subscribe((data: any[])=>{
-
+    this.ElementData = [];
+    this.formationService.getAllFormation().subscribe((data: any[]) => {
       data.forEach((element, index) => {
         this.ElementData.push(
           {
             Code:  element.codeFormation,
-            Niveau: element.diplome,
-            Libelle: element.nomFormation
+            Diplôme: element.diplome,
+            Libellé: element.nomFormation
           }
         );
-      },);
+      }, );
     });
-      this.dataSource = new MatTableDataSource(this.ElementData);
+    this.dataSource = new MatTableDataSource(this.ElementData);
     setTimeout(() => {
       this.table.renderRows();
     }, 2000);
     /* this.table.renderRows(); */
-      
+
   }
 
 }
