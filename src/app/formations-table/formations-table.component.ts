@@ -41,6 +41,7 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
   dataSource: any ;
   recherche: any;
   etat: string = "";
+  component: string = "";
 
   
   constructor(private cdref: ChangeDetectorRef, private dialog: MatDialog,
@@ -109,6 +110,7 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
   ngOnInit(){
 
     if (this.route.snapshot.url[0].path === 'formation'){
+      this.component = "formation";
       this.displayedColumns = ['Niveau', 'Code', 'Libelle'];
       this.formationService.getAllFormation().subscribe((data: any[])=>{
 
@@ -125,7 +127,8 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
         this.dataSource = new MatTableDataSource(this.ElementData);
     }
     else if (this.route.snapshot.url[0].path === 'formationDetails'){
-      this.displayedColumns = ['Code', 'Semestre', 'Description'];
+      this.component = "formationDetails";
+      this.displayedColumns = ['Code', 'Semestre', 'Description', 'Modifier enseignant'];
       console.log("codeFormation "+this.route.snapshot.paramMap.get('Code'));
       this.ueService.getFormationUE(this.route.snapshot.paramMap.get('Code')).subscribe((data: any[])=>{
 
