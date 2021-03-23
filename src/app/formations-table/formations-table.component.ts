@@ -7,26 +7,22 @@ import { FormationFormComponent } from '../formation-form/formation-form.compone
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormationService } from '../services/formation.service';
 import { UeService } from '../services/ue.service';
+import { UEnseignantModifComponent } from '../uenseignant-modif/uenseignant-modif.component';
 
 
 export interface FormationInterface {
   Code: string;
-  Niveau: string;
-  Libelle: string;
+  Diplôme: string;
+  Libellé: string;
 }
 
 export interface UEInterface {
-  Code: string;
+  "Code UE": string;
   Semestre: string;
-  Description: string;
+  Designation: string;
 }
 
 
-
-const UE_DATA: UEInterface[] = [
-  { Code: "JAVA", Semestre: "S5", Description: "Programmation en Java" },
-  { Code: "JEE", Semestre: "S6", Description: "Programmation en J2EE" }
-];
 
 
 @Component({
@@ -43,7 +39,7 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
   etat: string = "";
   component: string = "";
 
-  
+
   constructor(private cdref: ChangeDetectorRef, private dialog: MatDialog,
               private router: Router, public route: ActivatedRoute,
               private formationService: FormationService, private ueService: UeService) { }
@@ -63,7 +59,6 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
       this.cdref.detectChanges();
       if (this.route.snapshot.url[0].path === 'formation' && history.state.data != undefined){
 
-        console.log("tessst")
         this.recherche = history.state.data;
         this.dataSource.filter = this.recherche.trim().toLowerCase();
       }
@@ -77,17 +72,16 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
   }
 
   isNiveau(column: string): boolean {
-    return column === "Niveau";
+    return column === 'Diplôme';
   }
   openDialog() {
-    console.log("test");
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = "40%";
     dialogConfig.disableClose = true;
     const dialogRef = this.dialog.open(FormationFormComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(res =>{
-      
+
       if( res.data == true ){
         console.log(res);
         this.renderRowFunction();
@@ -111,40 +105,39 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
 
     if (this.route.snapshot.url[0].path === 'formation'){
       this.component = "formation";
-      this.displayedColumns = ['Niveau', 'Code', 'Libelle'];
-      this.formationService.getAllFormation().subscribe((data: any[])=>{
-
+      this.displayedColumns = ['Diplôme', 'Code', 'Libellé'];
+      this.formationService.getAllFormation().subscribe((data: any[]) => {
         data.forEach((element, index) => {
           this.ElementData.push(
             {
-              Code:  element.codeFormation,
-              Niveau: element.diplome,
-              Libelle: element.nomFormation
+              Code:  element.codeFormation.toUpperCase(),
+              Diplôme: element.diplome,
+              Libellé: element.nomFormation
             }
           );
-        },);
+        }, );
       });
-        this.dataSource = new MatTableDataSource(this.ElementData);
+      this.dataSource = new MatTableDataSource(this.ElementData);
     }
     else if (this.route.snapshot.url[0].path === 'formationDetails'){
       this.component = "formationDetails";
-      this.displayedColumns = ['Code', 'Semestre', 'Description', 'Modifier enseignant'];
-      console.log("codeFormation "+this.route.snapshot.paramMap.get('Code'));
-      this.ueService.getFormationUE(this.route.snapshot.paramMap.get('Code')).subscribe((data: any[])=>{
-
-        console.log(data)
+      this.displayedColumns = ['Code UE', 'Semestre', 'Designation','Modifier l\'enseignant de la UE'];
+      /* console.log('codeFormation ' + this.route.snapshot.paramMap.get('Code')); */
+      this.ueService.getFormationUE(this.route.snapshot.paramMap.get('Code')).subscribe((data: any[]) => {
+         console.log(data); 
         data.forEach((element, index) => {
           this.UElementData.push(
             {
-              Code:  element.id.codeUe,
+              "Code UE": element.id.codeUe,
               Semestre: element.semestre,
-              Description: element.description
+              Designation: element.designation
             }
           );
-        },);
+        }, );
       });
-        this.dataSource = new MatTableDataSource(this.UElementData);
+      console.log("UElementData "+this.UElementData.length+"*****")
 
+      this.dataSource = new MatTableDataSource(this.UElementData);
     }
 
 
@@ -157,37 +150,45 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
 
  } */
 
-    
+
 
 
   Details(code){
     if (this.route.snapshot.url[0].path === 'formation') {
-      
+
       this.router.navigate(['formationDetails/' + code], {state: {data:  this.recherche}});
 
-     
+
     }
   }
 
   renderRowFunction(){
-    this.formationService.getAllFormation().subscribe((data: any[])=>{
-
+    this.ElementData = [];
+    this.formationService.getAllFormation().subscribe((data: any[]) => {
       data.forEach((element, index) => {
         this.ElementData.push(
           {
             Code:  element.codeFormation,
-            Niveau: element.diplome,
-            Libelle: element.nomFormation
+            Diplôme: element.diplome,
+            Libellé: element.nomFormation
           }
         );
-      },);
+      }, );
     });
-      this.dataSource = new MatTableDataSource(this.ElementData);
+    this.dataSource = new MatTableDataSource(this.ElementData);
     setTimeout(() => {
       this.table.renderRows();
     }, 2000);
     /* this.table.renderRows(); */
-      
+
+  }
+
+  openDialogEnseignant(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "40%";
+    dialogConfig.disableClose = true;
+    const dialogRef = this.dialog.open(UEnseignantModifComponent, dialogConfig);
   }
 
 }

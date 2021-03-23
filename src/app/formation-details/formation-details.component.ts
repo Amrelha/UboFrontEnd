@@ -43,9 +43,10 @@ export class FormationDetailsComponent implements OnInit {
             debut_habilitation: res["debutAccreditation"],
             fin_habilitation: res["finAccreditation"]
           };
-        
+
 
       });
+
 
   }
 

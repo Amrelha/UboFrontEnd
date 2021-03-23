@@ -6,12 +6,13 @@
       <span class="titleItems">Diplome : </span>
       <span  *ngIf="data.diplome=='L'" style="font-family: sans-serif;font-size: 16px;">Licence</span>
       <span  *ngIf="data.diplome=='M'" style="font-family: sans-serif;font-size: 16px;">Master</span>
+      <span  *ngIf="data.diplome=='D'" style="font-family: sans-serif;font-size: 16px;">Doctorat</span>
       <span  *ngIf="data.diplome=='DUT'" style="font-family: sans-serif;font-size: 16px;">DUT</span>
     </mat-card-title>
-    
+
     <br />
     <mat-card-title>
-      <span class="titleItems">Nombre d'année : </span>
+      <span class="titleItems">Année diplôme : </span>
       <span style="font-family: sans-serif;font-size: 16px;">{{data.no_annee}}</span>
     </mat-card-title>
     <br>
@@ -28,9 +29,18 @@
     <br>
     <mat-card-title>
       <span class="titleItems">Debut Habilitation : </span>
-      <span style="font-family: sans-serif;font-size: 16px;">{{data.debut_habilitation}}</span>
+      <div *ngIf="data.debut_habilitation === null; then no else exist"></div>
+      <ng-template #exist> <span style="font-family: sans-serif;font-size: 16px;">{{data.debut_habilitation | date: 'dd/MM/yyyy'}}</span> </ng-template>
+      <ng-template #no><span style="font-family: sans-serif;font-size: 16px;">Date non renseigné</span></ng-template>
     </mat-card-title>
-  <br><br> 
+    <br>
+    <mat-card-title>
+      <span class="titleItems">Fin Habilitation : </span>
+      <div *ngIf="data.debut_habilitation === null; then no1 else exist1"></div>
+      <ng-template #exist1> <span style="font-family: sans-serif;font-size: 16px;">{{data.fin_habilitation | date: 'dd/MM/yyyy'}}</span> </ng-template>
+      <ng-template #no1><span style="font-family: sans-serif;font-size: 16px;">Date non renseigné</span></ng-template>
+    </mat-card-title>
+  <br><br>
   <app-formations-table [isClickable]="false"></app-formations-table>
   <div class="center">
     <button (click)="retourner()" mat-raised-button color="primary">Retour</button>

@@ -31,6 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { UeService } from './services/ue.service';
 import { MatSelectModule } from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { UEnseignantModifComponent } from './uenseignant-modif/uenseignant-modif.component';
 
 export const MY_FORMAT: MatDateFormats = {
   parse: {
@@ -52,7 +54,8 @@ export const MY_FORMAT: MatDateFormats = {
     HeaderComponent,
     FormationsTableComponent,
     FormationFormComponent,
-    FormationDetailsComponent
+    FormationDetailsComponent,
+    UEnseignantModifComponent
   ],
   imports: [
     BrowserModule,
@@ -75,10 +78,10 @@ export const MY_FORMAT: MatDateFormats = {
     MatCardModule,
     HttpClientModule,
     FormsModule,
-    MatSelectModule
-
+    MatSelectModule,
+    MatCheckboxModule
   ],
-  providers: [   
+  providers: [
     FormationService,
     DatePipe,
     UeService,
