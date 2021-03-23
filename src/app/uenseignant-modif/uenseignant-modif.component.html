@@ -1,0 +1,24 @@
+
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+        <mat-label>Enseignant</mat-label>
+        <input type="text"
+               placeholder="Choisissez un enseignant"
+               aria-label="Number"
+               matInput
+               [formControl]="myControl"
+               [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    <div class="row ">
+        <div class="col"><button mat-raised-button color="warn" type="button" (click)="fermer()" >Annuler</button></div>
+        <div class="col"></div>
+        <div class="col"><button class="submitButton" mat-raised-button color="primary" type="submit">Valider</button></div>
+    </div>
+
+
+  </form>

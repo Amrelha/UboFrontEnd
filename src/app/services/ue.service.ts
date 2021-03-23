@@ -16,6 +16,10 @@ getFormationUE(code:any){
     console.log(code);
     return this.httpClient.get(this.mainUrl+"UniteEnseignements/Formation/code="+code);
 }
+/* not done yet */
+getAllEnseignant(){
+    return this.httpClient.get(this.mainUrl)
+}
 
 
 }

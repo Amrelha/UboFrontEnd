@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormationService } from '../services/formation.service';
 import { UeService } from '../services/ue.service';
 import { UEnseignantModifComponent } from '../uenseignant-modif/uenseignant-modif.component';
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 
 
 export interface FormationInterface {
