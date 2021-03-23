@@ -33,6 +33,8 @@ import { UeService } from './services/ue.service';
 import { MatSelectModule } from '@angular/material/select';
 import { TextMaskModule } from 'angular2-text-mask';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { SuppressionDialogComponent } from './suppression-dialog/suppression-dialog.component';
+import { UeFormComponent } from './ue-form/ue-form.component';
 
 export const MY_FORMAT: MatDateFormats = {
   parse: {
@@ -54,7 +56,9 @@ export const MY_FORMAT: MatDateFormats = {
     HeaderComponent,
     FormationsTableComponent,
     FormationFormComponent,
-    FormationDetailsComponent
+    FormationDetailsComponent,
+    SuppressionDialogComponent,
+    UeFormComponent
   ],
   imports: [
     BrowserModule,

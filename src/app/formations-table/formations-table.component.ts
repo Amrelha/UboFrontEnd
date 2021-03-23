@@ -7,6 +7,8 @@ import { FormationFormComponent } from '../formation-form/formation-form.compone
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormationService } from '../services/formation.service';
 import { UeService } from '../services/ue.service';
+import {SuppressionDialogComponent} from '../suppression-dialog/suppression-dialog.component';
+import {UeFormComponent} from '../ue-form/ue-form.component';
 
 
 export interface FormationInterface {
@@ -88,18 +90,46 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
       if( res.data == true ){
         console.log(res);
         this.renderRowFunction();
-        console.log("data est ajouter");
+        console.log("data ajoutée");
         this.etat = "ajouter";
         setTimeout(() => {
           this.etat = "";
-        }, 6000);
+        }, 4000);
       }if( res.data == false ){
         console.log("existe deja");
         console.log(res)
         this.etat = "existe";
         setTimeout(() => {
           this.etat = "";
-        }, 6000);
+        }, 4000);
+      }
+    })
+  }
+
+  openDialogModif(elementElement: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "40%";
+    dialogConfig.disableClose = true;
+    const dialogRef = this.dialog.open(UeFormComponent, dialogConfig);
+    dialogRef.componentInstance.code= elementElement;
+    dialogRef.afterClosed().subscribe(res =>{
+
+      if( res.data == true ){
+        console.log(res);
+        this.renderRowFunction();
+        console.log("UE modifié");
+        this.etat = "modifier";
+        setTimeout(() => {
+          this.etat = "";
+        }, 4000);
+      }if( res.data == false ){
+        console.log("noModif");
+        console.log(res)
+        this.etat = "Nomodif";
+        setTimeout(() => {
+          this.etat = "";
+        }, 4000);
       }
     })
   }
@@ -107,7 +137,7 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
   ngOnInit(){
 
     if (this.route.snapshot.url[0].path === 'formation'){
-      this.displayedColumns = ['Diplôme', 'Code', 'Libellé'];
+      this.displayedColumns = ['Diplôme', 'Code', 'Libellé','Détails'];
       this.formationService.getAllFormation().subscribe((data: any[]) => {
         data.forEach((element, index) => {
           this.ElementData.push(
@@ -122,9 +152,9 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
       this.dataSource = new MatTableDataSource(this.ElementData);
     }
     else if (this.route.snapshot.url[0].path === 'formationDetails'){
-      this.displayedColumns = ['Nom', 'Semestre', 'Description'];
+      this.displayedColumns = ['Nom', 'Semestre', 'Description', 'DétailsUE'];
       console.log('codeFormation ' + this.route.snapshot.paramMap.get('Nom'));
-      this.ueService.getFormationUE(this.route.snapshot.paramMap.get('Nom')).subscribe((data: any[]) => {
+   /*  this.ueService.getFormationUE(this.route.snapshot.paramMap.get('Nom')).subscribe((data: any[]) => {
         data.forEach((element, index) => {
           this.UElementData.push(
             {
@@ -135,13 +165,15 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
           );
         }, );
       });
-      this.dataSource = new MatTableDataSource(this.UElementData);
+      this.dataSource = new MatTableDataSource(this.UElementData); */
 
-    }
+      this.dataSource = UE_DATA;
+
+
 
 
       /* this.CodeF = this.route.snapshot.params['Code']; */
-  }
+  }}
 
 /*   Details(code: any){
     this.router.navigate(['/formationDetails/code']);
@@ -180,6 +212,33 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
     }, 2000);
     /* this.table.renderRows(); */
 
+  }
+
+  supprimerDialog(code){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "40%";
+    dialogConfig.disableClose = true;
+    const dialogRef = this.dialog.open(SuppressionDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(res =>{
+      console.log(res);
+      if( res.data == 'supprimer' ){
+        console.log(res);
+        this.renderRowFunction();
+        console.log("Formation supprimée");
+        this.etat = "supprimer";
+        setTimeout(() => {
+          this.etat = "";
+        }, 4000);
+      }if( res.data == 'nosupprimer' ){
+        console.log("existe deja");
+        console.log(res)
+        this.etat = "nosupprimer";
+        setTimeout(() => {
+          this.etat = "";
+        }, 4000);
+      }
+    })
   }
 
 }
