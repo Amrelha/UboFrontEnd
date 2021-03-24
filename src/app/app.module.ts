@@ -35,6 +35,8 @@ import { UEnseignantModifComponent } from './uenseignant-modif/uenseignant-modif
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
+import {SuppressionDialogComponent} from './suppression-dialog/suppression-dialog.component';
+import {UeFormComponent} from './ue-form/ue-form.component';
 /* import { SuppressionDialogComponent } from './suppression-dialog/suppression-dialog.component';
 import { UeFormComponent } from './ue-form/ue-form.component'; */
 
@@ -59,9 +61,9 @@ export const MY_FORMAT: MatDateFormats = {
     FormationsTableComponent,
     FormationFormComponent,
     FormationDetailsComponent,
-    UEnseignantModifComponent
-/*     SuppressionDialogComponent,
-    UeFormComponent */
+    UEnseignantModifComponent,
+    SuppressionDialogComponent,
+    UeFormComponent
   ],
   imports: [
     BrowserModule,
@@ -88,7 +90,7 @@ export const MY_FORMAT: MatDateFormats = {
     MatCheckboxModule,
     MatFormFieldModule,
     MatAutocompleteModule
-    
+
   ],
   providers: [
     FormationService,

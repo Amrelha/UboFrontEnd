@@ -9,6 +9,8 @@ import { FormationService } from '../services/formation.service';
 import { UeService } from '../services/ue.service';
 import { UEnseignantModifComponent } from '../uenseignant-modif/uenseignant-modif.component';
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
+import {UeFormComponent} from '../ue-form/ue-form.component';
+import {SuppressionDialogComponent} from '../suppression-dialog/suppression-dialog.component';
 /* import {UeFormComponent} from '../ue-form/ue-form.component'; */
 
 
@@ -64,7 +66,7 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
         this.recherche = history.state.data;
         this.dataSource.filter = this.recherche.trim().toLowerCase();
       }
-    }, 2000);
+    }, 200);
 
   }
 
@@ -104,7 +106,7 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
   }
 
   openDialogModif(elementElement: any) {
-   /*  const dialogConfig = new MatDialogConfig();
+     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = "40%";
     dialogConfig.disableClose = true;
@@ -114,7 +116,7 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
 
       if( res.data == true ){
         console.log(res);
-        this.renderRowFunction();
+        this.renderRowFunction1();
         console.log("UE modifié");
         this.etat = "modifier";
         setTimeout(() => {
@@ -128,7 +130,7 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
           this.etat = "";
         }, 4000);
       }
-    }) */
+    })
   }
 
   ngOnInit(){
@@ -154,7 +156,6 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
       this.displayedColumns = ['Code UE', 'Semestre', 'Désignation', 'DétailsUE','Modifier l\'enseignant de la UE'];
       /* console.log('codeFormation ' + this.route.snapshot.paramMap.get('Code')); */
       this.ueService.getFormationUE(this.route.snapshot.paramMap.get('Code')).subscribe((data: any[]) => {
-         console.log(data); 
         data.forEach((element, index) => {
           this.UElementData.push(
             {
@@ -165,7 +166,6 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
           );
         }, );
       });
-      console.log("UElementData "+this.UElementData.length+"*****")
 
       this.dataSource = new MatTableDataSource(this.UElementData);
     }
@@ -208,22 +208,43 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
     this.dataSource = new MatTableDataSource(this.ElementData);
     setTimeout(() => {
       this.table.renderRows();
-    }, 2000);
+    }, 200);
+    /* this.table.renderRows(); */
+
+  }
+
+  renderRowFunction1(){
+    this.UElementData = [];
+    this.ueService.getFormationUE(this.route.snapshot.paramMap.get('Code')).subscribe((data: any[]) => {
+      data.forEach((element, index) => {
+        this.UElementData.push(
+          {
+            "Code UE": element.id.codeUe,
+            Semestre: element.semestre,
+            Désignation: element.designation
+          }
+        );
+      }, );
+    });
+    this.dataSource = new MatTableDataSource(this.UElementData);
+    setTimeout(() => {
+      this.table.renderRows();
+    }, 200);
     /* this.table.renderRows(); */
 
   }
 
   openDialogEnseignant(){
- 
+
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = "40%";
     dialogConfig.disableClose = true;
     const dialogRef = this.dialog.open(UEnseignantModifComponent, dialogConfig);
   }
-    
+
 supprimerDialog(code){
-/*   const dialogConfig = new MatDialogConfig();
+  const dialogConfig = new MatDialogConfig();
   dialogConfig.autoFocus = true;
   dialogConfig.width = "40%";
   dialogConfig.disableClose = true;
@@ -246,7 +267,7 @@ supprimerDialog(code){
           this.etat = "";
         }, 4000);
       }
-    }) */
+    })
   }
 
 }
