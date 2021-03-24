@@ -11,6 +11,7 @@ th, td {
   width:auto;
   text-overflow: ellipsis;
   white-space: nowrap;
+
 }
 tr.hoveringRow:hover{
   cursor: pointer;
@@ -34,18 +35,21 @@ tr.hoveringRow:hover{
 }
 
 
-button{
-  position:relative;
-    display:inline-block;
-    float:right;
-
-    background-color: rgb(201 203 212);
-    margin-top: 1%;
-
-}
-.modifierEns{
-  background-color: white;
+.button{
   position:relative;
   display:inline-block;
-  float: left;
+  float:right;
+
+
+  background-color: rgb(201 203 212);
+  margin-top: 1%;
+
 }
+
+.btn-sm{
+  padding-top:12px;
+}
+
+ table{
+   margin-bottom: 25px;
+ }

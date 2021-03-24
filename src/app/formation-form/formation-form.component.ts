@@ -77,7 +77,7 @@ export class FormationFormComponent implements OnInit {
       doubleDiplome: ['n',[Validators.required]],
       dateDebut: ['',[]],
       dateFin: ['',[]],
-      ueFormation:['',[Validators.required]]
+      
     });
   }
 

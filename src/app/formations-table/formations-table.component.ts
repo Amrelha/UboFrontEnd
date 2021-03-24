@@ -9,6 +9,7 @@ import { FormationService } from '../services/formation.service';
 import { UeService } from '../services/ue.service';
 import { UEnseignantModifComponent } from '../uenseignant-modif/uenseignant-modif.component';
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
+/* import {UeFormComponent} from '../ue-form/ue-form.component'; */
 
 
 export interface FormationInterface {
@@ -20,7 +21,7 @@ export interface FormationInterface {
 export interface UEInterface {
   "Code UE": string;
   Semestre: string;
-  Designation: string;
+  Désignation: string;
 }
 
 
@@ -86,27 +87,55 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
       if( res.data == true ){
         console.log(res);
         this.renderRowFunction();
-        console.log("data est ajouter");
+        console.log("data ajoutée");
         this.etat = "ajouter";
         setTimeout(() => {
           this.etat = "";
-        }, 6000);
+        }, 4000);
       }if( res.data == false ){
         console.log("existe deja");
         console.log(res)
         this.etat = "existe";
         setTimeout(() => {
           this.etat = "";
-        }, 6000);
+        }, 4000);
       }
     })
+  }
+
+  openDialogModif(elementElement: any) {
+   /*  const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "40%";
+    dialogConfig.disableClose = true;
+    const dialogRef = this.dialog.open(UeFormComponent, dialogConfig);
+    dialogRef.componentInstance.code= elementElement;
+    dialogRef.afterClosed().subscribe(res =>{
+
+      if( res.data == true ){
+        console.log(res);
+        this.renderRowFunction();
+        console.log("UE modifié");
+        this.etat = "modifier";
+        setTimeout(() => {
+          this.etat = "";
+        }, 4000);
+      }if( res.data == false ){
+        console.log("noModif");
+        console.log(res)
+        this.etat = "Nomodif";
+        setTimeout(() => {
+          this.etat = "";
+        }, 4000);
+      }
+    }) */
   }
 
   ngOnInit(){
 
     if (this.route.snapshot.url[0].path === 'formation'){
       this.component = "formation";
-      this.displayedColumns = ['Diplôme', 'Code', 'Libellé'];
+      this.displayedColumns = ['Diplôme', 'Code', 'Libellé','Détails'];
       this.formationService.getAllFormation().subscribe((data: any[]) => {
         data.forEach((element, index) => {
           this.ElementData.push(
@@ -122,7 +151,7 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
     }
     else if (this.route.snapshot.url[0].path === 'formationDetails'){
       this.component = "formationDetails";
-      this.displayedColumns = ['Code UE', 'Semestre', 'Designation','Modifier l\'enseignant de la UE'];
+      this.displayedColumns = ['Code UE', 'Semestre', 'Désignation', 'DétailsUE','Modifier l\'enseignant de la UE'];
       /* console.log('codeFormation ' + this.route.snapshot.paramMap.get('Code')); */
       this.ueService.getFormationUE(this.route.snapshot.paramMap.get('Code')).subscribe((data: any[]) => {
          console.log(data); 
@@ -131,7 +160,7 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
             {
               "Code UE": element.id.codeUe,
               Semestre: element.semestre,
-              Designation: element.designation
+              Désignation: element.designation
             }
           );
         }, );
@@ -185,11 +214,39 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
   }
 
   openDialogEnseignant(){
+ 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = "40%";
     dialogConfig.disableClose = true;
     const dialogRef = this.dialog.open(UEnseignantModifComponent, dialogConfig);
+  }
+    
+supprimerDialog(code){
+/*   const dialogConfig = new MatDialogConfig();
+  dialogConfig.autoFocus = true;
+  dialogConfig.width = "40%";
+  dialogConfig.disableClose = true;
+    const dialogRef = this.dialog.open(SuppressionDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(res =>{
+      console.log(res);
+      if( res.data == 'supprimer' ){
+        console.log(res);
+        this.renderRowFunction();
+        console.log("Formation supprimée");
+        this.etat = "supprimer";
+        setTimeout(() => {
+          this.etat = "";
+        }, 4000);
+      }if( res.data == 'nosupprimer' ){
+        console.log("existe deja");
+        console.log(res)
+        this.etat = "nosupprimer";
+        setTimeout(() => {
+          this.etat = "";
+        }, 4000);
+      }
+    }) */
   }
 
 }
