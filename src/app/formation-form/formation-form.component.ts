@@ -6,7 +6,6 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
 import { Router } from '@angular/router';
 import { FormationService } from '../services/formation.service';
 import { UeService } from '../services/ue.service';
-import { TextMaskModule } from 'angular2-text-mask';
 import {DateAdapter} from '@angular/material/core';
 
 export interface UEInterface{
@@ -78,7 +77,7 @@ export class FormationFormComponent implements OnInit {
       doubleDiplome: ['n',[Validators.required]],
       dateDebut: ['',[]],
       dateFin: ['',[]],
-      ueFormation:['',[Validators.required]]
+      
     });
   }
 

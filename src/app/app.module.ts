@@ -21,7 +21,7 @@ import { DateAdapter, MatDateFormats, MatNativeDateModule, MAT_DATE_FORMATS, MAT
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import {MatDialogModule} from '@angular/material/dialog';
+import {MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { FormationDetailsComponent } from './formation-details/formation-details.component';
@@ -30,11 +30,13 @@ import { FormationService } from './services/formation.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { UeService } from './services/ue.service';
-import { MatSelectModule } from '@angular/material/select';
-import { TextMaskModule } from 'angular2-text-mask';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import { SuppressionDialogComponent } from './suppression-dialog/suppression-dialog.component';
-import { UeFormComponent } from './ue-form/ue-form.component';
+import { UEnseignantModifComponent } from './uenseignant-modif/uenseignant-modif.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatSelectModule } from '@angular/material/select';
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
+/* import { SuppressionDialogComponent } from './suppression-dialog/suppression-dialog.component';
+import { UeFormComponent } from './ue-form/ue-form.component'; */
 
 export const MY_FORMAT: MatDateFormats = {
   parse: {
@@ -57,8 +59,9 @@ export const MY_FORMAT: MatDateFormats = {
     FormationsTableComponent,
     FormationFormComponent,
     FormationDetailsComponent,
-    SuppressionDialogComponent,
-    UeFormComponent
+    UEnseignantModifComponent
+/*     SuppressionDialogComponent,
+    UeFormComponent */
   ],
   imports: [
     BrowserModule,
@@ -82,15 +85,18 @@ export const MY_FORMAT: MatDateFormats = {
     HttpClientModule,
     FormsModule,
     MatSelectModule,
-    TextMaskModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatAutocompleteModule
+    
   ],
   providers: [
     FormationService,
     DatePipe,
     UeService,
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMAT} ],
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMAT},
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {width: '648px', scrollStrategy: new NoopScrollStrategy()}} ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

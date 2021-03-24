@@ -46,7 +46,7 @@ export class FormationDetailsComponent implements OnInit {
 
 
       });
-    console.log(this.data.debut_habilitation);
+
 
   }
 

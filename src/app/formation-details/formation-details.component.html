@@ -32,7 +32,6 @@
       <div *ngIf="data.debut_habilitation === null; then no else exist"></div>
       <ng-template #exist> <span style="font-family: sans-serif;font-size: 16px;">{{data.debut_habilitation | date: 'dd/MM/yyyy'}}</span> </ng-template>
       <ng-template #no><span style="font-family: sans-serif;font-size: 16px;">Date non renseigné</span></ng-template>
-
     </mat-card-title>
     <br>
     <mat-card-title>
@@ -40,7 +39,6 @@
       <div *ngIf="data.debut_habilitation === null; then no1 else exist1"></div>
       <ng-template #exist1> <span style="font-family: sans-serif;font-size: 16px;">{{data.fin_habilitation | date: 'dd/MM/yyyy'}}</span> </ng-template>
       <ng-template #no1><span style="font-family: sans-serif;font-size: 16px;">Date non renseigné</span></ng-template>
-
     </mat-card-title>
   <br><br>
   <app-formations-table [isClickable]="false"></app-formations-table>

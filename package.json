@@ -27,8 +27,10 @@
     "angular-mat-datepicker": "0.0.2",
     "angular2-text-mask": "^9.0.0",
     "bootstrap": "^4.6.0",
+    "bootstrap-select": "^1.13.18",
     "location": "0.0.1",
     "moment": "^2.29.1",
+    "ngx-mat-select-search": "^3.2.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
