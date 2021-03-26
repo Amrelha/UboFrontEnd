@@ -15,7 +15,9 @@
     </button>
   </div>
 </div>
-
+<div *ngIf="etat=='profModifier'" class="alert alert-success" role="alert">
+  L'enseignant de la UE <span style="font-weight: bold;">{{UE}}</span>  a été modifié. 
+</div>
 <div *ngIf="etat=='existe'" class="alert alert-danger" role="alert">
   Cette formation existe déja.
 </div>
@@ -67,7 +69,7 @@
       <ng-template #other>
 
 
-        <button  (click)="openDialogEnseignant()" *ngIf="column=='Modifier l\'enseignant de la UE'"
+        <button  (click)="openDialogEnseignant(element['Code UE'])" *ngIf="column=='Modifier l\'enseignant de la UE'"
         class="btn btn-outline-secondary " type="button">
 
           <svg class="bi bi-eye" fill="currentColor" height="16" viewBox="0 0 16 16" width="16"

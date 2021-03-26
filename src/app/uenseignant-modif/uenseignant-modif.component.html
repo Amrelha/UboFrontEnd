@@ -1,10 +1,15 @@
-
-  <form class="example-form">
+<div *ngIf="etat=='existePas'" class="alert alert-danger" role="alert">
+  Cet enseignant n'existe pas.
+</div>
+<div *ngIf="etat=='existe'" class="alert alert-danger" role="alert">
+  Cet enseignant est déjà affecté à ce Module.
+</div>
+  <form class="example-form" (ngSubmit)="onSubmitForm()">
     <mat-form-field class="example-full-width">
         <mat-label>Enseignant</mat-label>
-        <input type="text"
+        <input type="text" (keyup)="verify($event)"
                placeholder="Choisissez un enseignant"
-               aria-label="Number"
+               aria-label=""
                matInput
                [formControl]="myControl"
                [matAutocomplete]="auto">
