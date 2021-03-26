@@ -1,0 +1,26 @@
+.example-form {
+  min-width: 150px;
+  //max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+.submitButton{
+  left: 45%;
+}
+.doubleDip{
+  left: 15%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

@@ -1,0 +1,56 @@
+
+<form class="example-form" [formGroup]="formationForm" (ngSubmit)="onSubmitForm()">
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Nom de l'UE</mat-label>
+    <input  matInput formControlName="Nom" ngModel="{{code}}" >
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Désignation</mat-label>
+    <input matInput formControlName="designation" ngModel="{{designation}}">
+    <mat-error *ngIf="formationForm.invalid">
+      {{getErrocMessage("designation")}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Nombre d'heures de CM</mat-label>
+    <input matInput formControlName="nbhCm" [(ngModel)]="nbhCm" (change)="onChangeEvent($event)">
+    <mat-error *ngIf="formationForm.invalid">
+      {{getErrocMessage("nbhCm")}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Nombre d'heures de TD</mat-label>
+    <input matInput formControlName="nbhTd" [(ngModel)]="nbhTd"  (change)="onChangeEvent($event)">
+    <mat-error *ngIf="formationForm.invalid">
+      {{getErrocMessage("nbhTd")}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Nombre d'heures de TP</mat-label>
+    <input matInput formControlName="nbhTp" [(ngModel)]="nbhTp" (change)="onChangeEvent($event)">
+    <mat-error *ngIf="formationForm.invalid">
+      {{getErrocMessage("nbhTp")}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Nombre total d'heures</mat-label>
+    <input  matInput formControlName="nbt" [(ngModel)]="nbt">
+  </mat-form-field>
+
+
+  <div class="row ">
+    <div class="col"><button mat-raised-button color="warn" type="button" (click)="fermer()" >Annuler</button></div>
+    <div class="col"></div>
+    <div class="col"><button class="submitButton" mat-raised-button color="primary" type="submit" [disabled]="!formationForm.valid">Modifier</button></div>
+  </div>
+
+
+</form>
+
+
