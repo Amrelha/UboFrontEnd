@@ -9,8 +9,10 @@ import { FormationService } from '../services/formation.service';
 import { UeService } from '../services/ue.service';
 import { UEnseignantModifComponent } from '../uenseignant-modif/uenseignant-modif.component';
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
-import {UeFormComponent} from '../ue-form/ue-form.component';
-import {SuppressionDialogComponent} from '../suppression-dialog/suppression-dialog.component';
+import { map } from 'rxjs/operators';
+import { element } from 'protractor';
+/* import {UeFormComponent} from '../ue-form/ue-form.component';
+import {SuppressionDialogComponent} from '../suppression-dialog/suppression-dialog.component'; */
 /* import {UeFormComponent} from '../ue-form/ue-form.component'; */
 
 
@@ -38,11 +40,12 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
   displayedColumns: string[];
   ElementData: FormationInterface[] = new Array();
   UElementData: UEInterface[] = new Array();
+  enseignantList: Map<string,string> = new Map();
   dataSource: any ;
   recherche: any;
   etat: string = "";
   component: string = "";
-
+  UE:string = "";
 
   constructor(private cdref: ChangeDetectorRef, private dialog: MatDialog,
               private router: Router, public route: ActivatedRoute,
@@ -105,8 +108,8 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
     })
   }
 
-  openDialogModif(elementElement: any) {
-     const dialogConfig = new MatDialogConfig();
+     openDialogModif(elementElement: any) {
+   /*  const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = "40%";
     dialogConfig.disableClose = true;
@@ -130,8 +133,8 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
           this.etat = "";
         }, 4000);
       }
-    })
-  }
+    })*/
+  } 
 
   ngOnInit(){
 
@@ -164,6 +167,7 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
               Désignation: element.designation
             }
           );
+        this.enseignantList.set(element.id.codeUe, element.enseignant.nom.toUpperCase()+" "+ element.enseignant.prenom);
         }, );
       });
 
@@ -233,18 +237,51 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
     /* this.table.renderRows(); */
 
   }
+  renderDetailsRowFunction(){
+    this.UElementData = []
+    this.ueService.getFormationUE(this.route.snapshot.paramMap.get('Code')).subscribe((data: any[]) => {
+      console.log(data); 
+     data.forEach((element, index) => {
+       this.UElementData.push(
+         {
+           "Code UE": element.id.codeUe,
+           Semestre: element.semestre,
+           Désignation: element.designation
+         }
+       );
+     this.enseignantList.set(element.id.codeUe, element.enseignant.nom.toUpperCase()+" "+ element.enseignant.prenom);
+     }, );
+   });
+   this.dataSource = new MatTableDataSource(this.UElementData);
+   setTimeout(() => {
+    this.table.renderRows();
+  }, 1000);
+  }
 
-  openDialogEnseignant(){
-
+  openDialogEnseignant(codeUE: string){
+    console.log(this.enseignantList.get(codeUE));
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = "40%";
     dialogConfig.disableClose = true;
+    dialogConfig.data = {nomPrenom: this.enseignantList.get(codeUE), codeUE: codeUE, 
+      UE: this.UElementData.find(element=>element["Code UE"]==codeUE).Désignation}
     const dialogRef = this.dialog.open(UEnseignantModifComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(res =>{
+      console.log(res.data);
+      if(res.data == true){
+        this.renderDetailsRowFunction();
+        this.etat = "profModifier";
+        this.UE = res.UE
+        setTimeout(() => {
+          this.etat = ""
+        }, 5000);
+      }
+    });
   }
 
-supprimerDialog(code){
-  const dialogConfig = new MatDialogConfig();
+  supprimerDialog(code){
+ /* const dialogConfig = new MatDialogConfig();
   dialogConfig.autoFocus = true;
   dialogConfig.width = "40%";
   dialogConfig.disableClose = true;
@@ -267,7 +304,7 @@ supprimerDialog(code){
           this.etat = "";
         }, 4000);
       }
-    })
-  }
+    })*/
+  } 
 
 }

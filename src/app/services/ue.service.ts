@@ -1,5 +1,6 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
 
 @Injectable()
 export class UeService {
@@ -15,13 +16,19 @@ export class UeService {
 
   getFormationUE(code: any) {
     console.log(code);
-    return this.httpClient.get(this.mainUrl + 'UniteEnseignements/Formation/code=' + code);
-  }
+    return this.httpClient.get(this.mainUrl+"UniteEnseignements/Formation/code="+code);
+}
 
-  /* not done yet */
-  getAllEnseignant() {
-    return this.httpClient.get(this.mainUrl);
-  }
+getAllEnseignant(){
+    return this.httpClient.get(this.mainUrl+"allEnseignants");
+}
+
+updateEnseignantUE(codeUE:any, ensCode:any){
+    const headers = new HttpHeaders({
+        "Content-Type": "application/json"
+      });
+    return this.httpClient.put(this.mainUrl+"updateUEEnseignant/code="+codeUE+"/ensCode="+ensCode,{headers: headers});
+}
 
   getUE(code: any) {
     return this.httpClient.get(this.mainUrl + 'UniteEnseignements/UE/code=' + code);
