@@ -15,9 +15,9 @@ import {UEInterface, UniteEnseignements} from '../formation-form/formation-form.
 })
 export class SuppressionDialogComponent implements OnInit {
   private formationForm: any;
-
+  code: any;
   constructor(private dialog: MatDialogRef<SuppressionDialogComponent>,
-              private router: Router, private adapter: DateAdapter<any>) { }
+              private router: Router, private adapter: DateAdapter<any>, private formationService: FormationService) { }
 
   ngOnInit(): void {
 
@@ -25,12 +25,10 @@ export class SuppressionDialogComponent implements OnInit {
 
 
   onSubmitForm(){
-    /*this.formationService.addFormation(data).subscribe((res)=>{
-      this.added = res;
-      this.dialog.close({data:this.added});
+    this.formationService.deleteFormation(this.code).subscribe((res)=> {
+      console.log('supprimer');
+      this.dialog.close({data: "supprimer"});
     });
-*/console.log('supprimer');
-    this.dialog.close({data: "supprimer"});
 
   }
 

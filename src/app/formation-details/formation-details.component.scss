@@ -14,5 +14,16 @@
 }
 
 button{
-  margin-top: 2.5%;
+  margin-top: 30%;
+}
+
+.fixed{
+  position: sticky;
+  top:0;
+  z-index: 999;
+  background-color: white;
+}
+
+.title{
+  padding: 10px;
 }

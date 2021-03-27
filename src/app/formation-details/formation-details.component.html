@@ -1,6 +1,12 @@
+
 <mat-card>
 
-    <mat-card-title>{{this.data.code}}</mat-card-title>
+    <div class="fixed row">
+      <div class="col-11 title"><br/><mat-card-title >{{this.data.code}}</mat-card-title></div>
+      <div class="fixed col-1"><button   (click)="retourner()" mat-raised-button color="primary">Retour</button></div>
+      <div><br/></div>
+    </div>
+
     <br />
     <mat-card-title>
       <span class="titleItems">Diplome : </span>
@@ -42,7 +48,5 @@
     </mat-card-title>
   <br><br>
   <app-formations-table [isClickable]="false"></app-formations-table>
-  <div class="center">
-    <button (click)="retourner()" mat-raised-button color="primary">Retour</button>
-  </div>
+
 </mat-card>

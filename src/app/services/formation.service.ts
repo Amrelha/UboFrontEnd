@@ -25,4 +25,8 @@ getDetailsFormation(code:any){
     return this.httpClient.get(this.mainUrl+"Formations/code="+code);
 }
 
+deleteFormation(code:any){
+  return this.httpClient.delete(this.mainUrl+"Formations/delete/code="+code);
+}
+
 }

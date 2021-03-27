@@ -11,9 +11,8 @@ import { UEnseignantModifComponent } from '../uenseignant-modif/uenseignant-modi
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { map } from 'rxjs/operators';
 import { element } from 'protractor';
-/* import {UeFormComponent} from '../ue-form/ue-form.component';
-import {SuppressionDialogComponent} from '../suppression-dialog/suppression-dialog.component'; */
-/* import {UeFormComponent} from '../ue-form/ue-form.component'; */
+import {UeFormComponent} from '../ue-form/ue-form.component';
+import {SuppressionDialogComponent} from '../suppression-dialog/suppression-dialog.component';
 
 
 export interface FormationInterface {
@@ -109,7 +108,7 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
   }
 
      openDialogModif(elementElement: any) {
-   /*  const dialogConfig = new MatDialogConfig();
+    const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = "40%";
     dialogConfig.disableClose = true;
@@ -133,8 +132,8 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
           this.etat = "";
         }, 4000);
       }
-    })*/
-  } 
+    })
+  }
 
   ngOnInit(){
 
@@ -240,7 +239,7 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
   renderDetailsRowFunction(){
     this.UElementData = []
     this.ueService.getFormationUE(this.route.snapshot.paramMap.get('Code')).subscribe((data: any[]) => {
-      console.log(data); 
+      console.log(data);
      data.forEach((element, index) => {
        this.UElementData.push(
          {
@@ -264,7 +263,7 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = "40%";
     dialogConfig.disableClose = true;
-    dialogConfig.data = {nomPrenom: this.enseignantList.get(codeUE), codeUE: codeUE, 
+    dialogConfig.data = {nomPrenom: this.enseignantList.get(codeUE), codeUE: codeUE,
       UE: this.UElementData.find(element=>element["Code UE"]==codeUE).Désignation}
     const dialogRef = this.dialog.open(UEnseignantModifComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(res =>{
@@ -281,30 +280,31 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
   }
 
   supprimerDialog(code){
- /* const dialogConfig = new MatDialogConfig();
+  const dialogConfig = new MatDialogConfig();
   dialogConfig.autoFocus = true;
   dialogConfig.width = "40%";
   dialogConfig.disableClose = true;
     const dialogRef = this.dialog.open(SuppressionDialogComponent, dialogConfig);
+    dialogRef.componentInstance.code= code;
     dialogRef.afterClosed().subscribe(res =>{
       console.log(res);
-      if( res.data == 'supprimer' ){
+      if( res.data == true ){
         console.log(res);
         this.renderRowFunction();
-        console.log("Formation supprimée");
+
         this.etat = "supprimer";
         setTimeout(() => {
           this.etat = "";
         }, 4000);
-      }if( res.data == 'nosupprimer' ){
-        console.log("existe deja");
+      }else{
+
         console.log(res)
         this.etat = "nosupprimer";
         setTimeout(() => {
           this.etat = "";
         }, 4000);
       }
-    })*/
-  } 
+    })
+  }
 
 }
