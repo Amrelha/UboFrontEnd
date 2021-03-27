@@ -25,6 +25,8 @@ export interface UEInterface {
   "Code UE": string;
   Semestre: string;
   Désignation: string;
+  "Nombre TD":number;
+  Responsable: string;
 }
 
 
@@ -155,7 +157,7 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
     }
     else if (this.route.snapshot.url[0].path === 'formationDetails'){
       this.component = "formationDetails";
-      this.displayedColumns = ['Code UE', 'Semestre', 'Désignation', 'DétailsUE','Modifier l\'enseignant de la UE'];
+      this.displayedColumns = ['Code UE', 'Semestre', 'Désignation', 'Responsable', 'Nombre TD', 'DétailsUE','Modifier l\'enseignant de la UE'];
       /* console.log('codeFormation ' + this.route.snapshot.paramMap.get('Code')); */
       this.ueService.getFormationUE(this.route.snapshot.paramMap.get('Code')).subscribe((data: any[]) => {
         data.forEach((element, index) => {
@@ -163,7 +165,11 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
             {
               "Code UE": element.id.codeUe,
               Semestre: element.semestre,
-              Désignation: element.designation
+              Désignation: element.designation,
+              "Nombre TD": element.nbhTd.toFixed(1),
+              Responsable:element.enseignant.nom.toUpperCase() + ' ' + element.enseignant.prenom
+
+
             }
           );
         this.enseignantList.set(element.id.codeUe, element.enseignant.nom.toUpperCase()+" "+ element.enseignant.prenom);
@@ -224,7 +230,9 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
           {
             "Code UE": element.id.codeUe,
             Semestre: element.semestre,
-            Désignation: element.designation
+            Désignation: element.designation,
+            "Nombre TD": element.nbhTd.toFixed(1),
+            Responsable: element.enseignant.nom.toUpperCase() + ' ' + element.enseignant.prenom
           }
         );
       }, );
@@ -245,7 +253,9 @@ export class FormationsTableComponent implements AfterViewInit, OnInit {
          {
            "Code UE": element.id.codeUe,
            Semestre: element.semestre,
-           Désignation: element.designation
+           Désignation: element.designation,
+           "Nombre TD": element.nbhTd.toFixed(1),
+           Responsable: element.enseignant.nom.toUpperCase() + ' ' + element.enseignant.prenom
          }
        );
      this.enseignantList.set(element.id.codeUe, element.enseignant.nom.toUpperCase()+" "+ element.enseignant.prenom);
